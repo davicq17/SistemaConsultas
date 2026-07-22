@@ -114,3 +114,11 @@ Próximamente:
 # Autor
 
 Proyecto desarrollado con fines académicos aplicando buenas prácticas de desarrollo backend utilizando Kotlin y Spring Boot.
+
+---
+## Documentación
+
+- [Arquitectura](docs/Arquitectura.md)
+- [Flujo de Git](docs/FlujoGit.md)
+- [Convenciones](docs/Convenciones.md)
+- [Integrantes](docs/Integrantes.md)
