@@ -10,4 +10,8 @@ interface UsuarioRepository : JpaRepository<Usuario, Long>{
     fun existsByCorreo(correo: String): Boolean
 
     fun existsByIdentificacion(identificacion: String): Boolean
+
+    fun findAllByActivoTrue(): List<Usuario>
+
+    fun findByIdAndActivoTrue(id: Long): Usuario?
 }
