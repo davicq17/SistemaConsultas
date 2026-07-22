@@ -14,6 +14,12 @@ class Modulo(
     var nombre: String = "",
 
     @Column(length = 500)
-    var descripcion: String = ""
+    var descripcion: String = "",
+
+    @Column(nullable = false)
+    var activo: Boolean = true,
+
+    @OneToMany(mappedBy = "modulo")
+    var solicitudes: MutableList<SolicitudConsulta> = mutableListOf()
 
 )
