@@ -13,6 +13,9 @@ class ProgramaAcademico(
     @Column(nullable = false, unique = true, length = 150)
     var nombre: String = "",
 
+    @Column(nullable = false)
+    var activo: Boolean = true,
+
     @OneToMany(mappedBy = "programa")
     var usuarios: MutableList<Usuario> = mutableListOf()
 
