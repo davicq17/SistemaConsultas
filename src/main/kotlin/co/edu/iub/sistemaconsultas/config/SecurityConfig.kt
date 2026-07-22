@@ -30,7 +30,9 @@ class SecurityConfig(
 
                 it.requestMatchers(
                     "/auth/login",
-                    "/auth/register"
+                    "/auth/register",
+                    "/auth/forgot-password",
+                    "/auth/reset-password"
                 ).permitAll()
 
                 it.anyRequest().authenticated()

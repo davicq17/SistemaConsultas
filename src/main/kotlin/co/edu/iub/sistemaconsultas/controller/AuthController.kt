@@ -1,8 +1,10 @@
 package co.edu.iub.sistemaconsultas.controller
 
+import co.edu.iub.sistemaconsultas.dto.ForgotPasswordRequest
 import co.edu.iub.sistemaconsultas.dto.LoginRequest
 import co.edu.iub.sistemaconsultas.dto.LoginResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
+import co.edu.iub.sistemaconsultas.dto.ResetPasswordRequest
 import co.edu.iub.sistemaconsultas.service.AuthService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -35,5 +37,29 @@ class AuthController(
 
         return ResponseEntity.ok(response)
 
+    }
+
+    @PostMapping("/forgot-password")
+    fun forgotPassword(
+        @RequestBody request: ForgotPasswordRequest
+    ): ResponseEntity<String>{
+
+        authService.forgotPassword(request)
+
+        return ResponseEntity.ok(
+            "Se ha generado un token de recuperación."
+        )
+    }
+
+    @PostMapping("/reset-password")
+    fun resetPassword(
+        @RequestBody request: ResetPasswordRequest
+    ): ResponseEntity<String>{
+
+        authService.resetPassword(request)
+
+        return ResponseEntity.ok(
+            "Contraseña actualizada correctamente."
+        )
     }
 }
