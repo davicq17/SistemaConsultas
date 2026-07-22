@@ -5,7 +5,7 @@ import co.edu.iub.sistemaconsultas.dto.LoginResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
 import co.edu.iub.sistemaconsultas.model.Rol
 import co.edu.iub.sistemaconsultas.model.Usuario
-import co.edu.iub.sistemaconsultas.repository.ProgramaAcademicoRepository
+import co.edu.iub.sistemaconsultas.repository.ProgAcademicoRepository
 import co.edu.iub.sistemaconsultas.repository.UsuarioRepository
 import co.edu.iub.sistemaconsultas.service.AuthService
 import co.edu.iub.sistemaconsultas.service.CustomUserDetailsService
@@ -22,7 +22,7 @@ class AuthServiceImpl(
     private val customUserDetailsService: CustomUserDetailsService,
     private val usuarioRepository: UsuarioRepository,
     private val passwordEncoder: PasswordEncoder,
-    private val programaRepository: ProgramaAcademicoRepository
+    private val programaRepository: ProgAcademicoRepository
 ): AuthService {
 
     override fun login(request: LoginRequest): LoginResponse {

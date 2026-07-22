@@ -4,7 +4,7 @@ import co.edu.iub.sistemaconsultas.dto.UpdateUsuarioRequest
 import co.edu.iub.sistemaconsultas.dto.UsuarioResponse
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
-import co.edu.iub.sistemaconsultas.repository.ProgramaAcademicoRepository
+import co.edu.iub.sistemaconsultas.repository.ProgAcademicoRepository
 import co.edu.iub.sistemaconsultas.repository.UsuarioRepository
 import co.edu.iub.sistemaconsultas.service.UsuarioService
 import co.edu.iub.sistemaconsultas.mapper.toResponse
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 class UsuarioServiceImpl(
 
     private val usuarioRepository: UsuarioRepository,
-    private val programaAcademicoRepository: ProgramaAcademicoRepository
+    private val progAcademicoRepository: ProgAcademicoRepository
 
 ) : UsuarioService {
 
@@ -48,7 +48,7 @@ class UsuarioServiceImpl(
         }
 
         val programa = request.programaId?.let{programaId ->
-            programaAcademicoRepository.findById(programaId)
+            progAcademicoRepository.findById(programaId)
                 .orElseThrow {
                     BadRequestException("El programa académico no existe.")
                 }
