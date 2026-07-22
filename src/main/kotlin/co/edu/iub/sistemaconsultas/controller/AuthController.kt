@@ -4,6 +4,7 @@ import co.edu.iub.sistemaconsultas.dto.LoginRequest
 import co.edu.iub.sistemaconsultas.dto.LoginResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
 import co.edu.iub.sistemaconsultas.service.AuthService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -15,7 +16,7 @@ class AuthController(
 ){
     @PostMapping("/register")
     fun registrar(
-        @RequestBody request: RegistroUsuarioRequest
+        @Valid @RequestBody request: RegistroUsuarioRequest
     ): ResponseEntity<String> {
 
         authService.registrar(request)
