@@ -3,6 +3,7 @@ package co.edu.iub.sistemaconsultas.controller
 import co.edu.iub.sistemaconsultas.dto.UpdateUsuarioRequest
 import co.edu.iub.sistemaconsultas.dto.UsuarioResponse
 import co.edu.iub.sistemaconsultas.service.UsuarioService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -32,7 +33,7 @@ class UsuarioController (
     @PutMapping("/{id}")
     fun actualizarUsuario(
         @PathVariable id: Long,
-        @RequestBody request: UpdateUsuarioRequest
+        @Valid @RequestBody request: UpdateUsuarioRequest
     ): UsuarioResponse{
         return usuarioService.actualizarUsuario(id, request)
     }

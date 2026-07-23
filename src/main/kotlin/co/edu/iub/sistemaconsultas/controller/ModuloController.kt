@@ -4,6 +4,7 @@ import co.edu.iub.sistemaconsultas.dto.ModuloResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroModuloRequest
 import co.edu.iub.sistemaconsultas.dto.UpdateModuloRequest
 import co.edu.iub.sistemaconsultas.service.ModuloService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -16,6 +17,7 @@ class ModuloController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun registrarModulo(
+        @Valid
         @RequestBody
         request: RegistroModuloRequest
     ): ModuloResponse{
@@ -42,6 +44,7 @@ class ModuloController(
     fun actualizarModulo(
         @PathVariable
         id: Long,
+        @Valid
         @RequestBody
         request: UpdateModuloRequest
     ): ModuloResponse{

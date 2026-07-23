@@ -4,6 +4,7 @@ import co.edu.iub.sistemaconsultas.dto.ProgAcademicoResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroProgAcademicoRequest
 import co.edu.iub.sistemaconsultas.dto.UpdateProgAcademicoRequest
 import co.edu.iub.sistemaconsultas.service.ProgAcademicoService
+import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,8 +25,7 @@ class ProgAcademicoController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun registrarPrograma(
-        @RequestBody
-        request: RegistroProgAcademicoRequest
+        @Valid @RequestBody request: RegistroProgAcademicoRequest
     ): ProgAcademicoResponse{
 
         return progAcademicoService.registrarPrograma(request)
@@ -52,6 +52,7 @@ class ProgAcademicoController(
         @PathVariable
         id:Long,
 
+        @Valid
         @RequestBody
         request: UpdateProgAcademicoRequest
     ): ProgAcademicoResponse{

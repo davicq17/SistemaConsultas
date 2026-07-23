@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.bind.MethodArgumentNotValidException
 import java.time.LocalDateTime
 
 @RestControllerAdvice
@@ -11,9 +12,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException::class)
     fun handleResourceNotFound(
-
         ex: ResourceNotFoundException
-
     ): ResponseEntity<ErrorResponse> {
 
         val error = ErrorResponse(
@@ -28,9 +27,7 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(BadRequestException::class)
     fun handleBadRequest(
-
         ex: BadRequestException
-
     ): ResponseEntity<ErrorResponse> {
 
         val error = ErrorResponse(
@@ -38,6 +35,26 @@ class GlobalExceptionHandler {
             status = HttpStatus.BAD_REQUEST.value(),
             error = HttpStatus.BAD_REQUEST.reasonPhrase,
             message = ex.message ?: "Solicitud inválida."
+        )
+
+        return ResponseEntity(error, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun hendleValidationExceptions(
+        ex: MethodArgumentNotValidException
+    ): ResponseEntity<ErrorResponse>{
+
+        val errores = ex.bindingResult.fieldErrors.associate {
+            it.field to (it.defaultMessage ?: "Valor inválido")
+        }
+
+        val error = ErrorResponse(
+            timestamp = LocalDateTime.now(),
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
+            message = "Error de validació.",
+            errors = errores
         )
 
         return ResponseEntity(error, HttpStatus.BAD_REQUEST)
