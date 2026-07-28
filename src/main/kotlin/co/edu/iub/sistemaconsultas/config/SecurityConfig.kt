@@ -32,7 +32,11 @@ class SecurityConfig(
                     "/auth/login",
                     "/auth/register",
                     "/auth/forgot-password",
-                    "/auth/reset-password"
+                    "/auth/reset-password",
+
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html"
                 ).permitAll()
 
                 it.anyRequest().authenticated()
