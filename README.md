@@ -1,5 +1,18 @@
 # Sistema de Gestión de Consultas Académicas
 
+![Kotlin](https://img.shields.io/badge/Kotlin-2.2.21-7F52FF?logo=kotlin&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.7-6DB33F?logo=springboot&logoColor=white)
+![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-9.5.1-02303A?logo=gradle&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-Enabled-6DB33F?logo=springsecurity&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-0.12.6-000000?logo=jsonwebtokens&logoColor=white)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-2.8.10-85EA2D?logo=swagger&logoColor=black)
+![Architecture](https://img.shields.io/badge/Architecture-Layered-blue)
+![API](https://img.shields.io/badge/API-REST-blueviolet)
+![Documentation](https://img.shields.io/badge/Documentation-Complete-brightgreen)
+![Status](https://img.shields.io/badge/Status-In_Development-orange)
+![License](https://img.shields.io/badge/License-Educational_Project-lightgrey)
+
 Backend desarrollado con **Kotlin + Spring Boot** para la gestión de consultas académicas entre estudiantes, docentes y administradores.
 
 El proyecto fue diseñado siguiendo una arquitectura por capas, aplicando buenas prácticas de desarrollo backend, principios de separación de responsabilidades y una estrategia de autenticación basada en JWT.
