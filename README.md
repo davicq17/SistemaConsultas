@@ -172,13 +172,14 @@ Consultar el archivo `.env.example` para conocer el formato esperado.
 
 La documentación técnica del proyecto se encuentra organizada en la carpeta **docs**.
 
-| Documento                                     | Descripción |
-|-----------------------------------------------|-------------|
-| [01-Arquitectura.md](docs/01-Arquitectura.md) | Arquitectura general del sistema |
-| [02-Convenciones.md](docs/02-Convenciones.md) | Convenciones de desarrollo |
-| [03-FlujoGit.md](docs/03-FlujoGit.md)         | Estrategia de trabajo con Git |
+| Documento                                     | Descripción                                |
+|-----------------------------------------------|--------------------------------------------|
+| [01-Arquitectura.md](docs/01-Arquitectura.md) | Arquitectura general del sistema           |
+| [02-Convenciones.md](docs/02-Convenciones.md) | Convenciones de desarrollo                 |
+| [03-FlujoGit.md](docs/03-FlujoGit.md)         | Estrategia de trabajo con Git              |
 | [04-Seguridad.md](docs/04-Seguridad.md)       | Arquitectura e implementación de seguridad |
-| [05-API.md](docs/05-API.md)                   | Convenciones generales de la API REST |
+| [05-API.md](docs/05-API.md)                   | Convenciones generales de la API REST      |
+| [06-ModeloDatos.md](docs/06-ModeloDatos.md)   | Dominio y entidades de trabajo             |
 
 ---
 
