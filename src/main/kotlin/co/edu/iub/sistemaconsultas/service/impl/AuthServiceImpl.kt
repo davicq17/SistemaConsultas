@@ -6,6 +6,7 @@ import co.edu.iub.sistemaconsultas.dto.LoginResponse
 import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
 import co.edu.iub.sistemaconsultas.dto.ResetPasswordRequest
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
+import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.model.PasswordResetToken
 import co.edu.iub.sistemaconsultas.model.Rol
 import co.edu.iub.sistemaconsultas.model.Usuario
@@ -57,18 +58,18 @@ class AuthServiceImpl(
     override fun registrar(request: RegistroUsuarioRequest) {
 
         if(usuarioRepository.existsByCorreo(request.correo)){
-            throw IllegalArgumentException("El correo ya está registrado")
+            throw BadRequestException("El correo ya está registrado")
         }
 
         if(usuarioRepository.existsByIdentificacion(request.identificacion)){
-            throw IllegalArgumentException("La identificación ya está registrada.")
+            throw BadRequestException("La identificación ya está registrada.")
         }
 
         val programa = request.programaId?.let {
 
             programaRepository.findById(it)
                 .orElseThrow{
-                    IllegalArgumentException("Programa académico no encontrado")
+                    ResourceNotFoundException("Programa académico no encontrado")
                 }
         }
 
