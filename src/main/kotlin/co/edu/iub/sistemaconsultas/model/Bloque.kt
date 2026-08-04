@@ -6,23 +6,31 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.Table
+import jakarta.persistence.UniqueConstraint
 
 @Entity
-@Table(name ="sedes")
-class Sede (
+@Table(name = "bloques",
+    uniqueConstraints = [
+        UniqueConstraint(
+            columnNames = ["nombre","sede_id"]
+        )
+    ])
+class Bloque (
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false)
     var nombre: String = "",
 
-    @Column(nullable = false)
+    @Column
     var activo: Boolean = true,
 
-    @OneToMany(mappedBy = "sede", fetch = FetchType.LAZY)
-    var bloques: MutableList<Bloque> = mutableListOf()
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sede_id", nullable = false)
+    var sede: Sede
 )
