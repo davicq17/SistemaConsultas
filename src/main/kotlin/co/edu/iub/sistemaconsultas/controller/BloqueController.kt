@@ -30,7 +30,7 @@ class BloqueController(
     )
     @ApiResponses(
         value = [
-            ApiResponse(responseCode = "201", description = "bloque creado correctamente."),
+            ApiResponse(responseCode = "201", description = "Bloque creado correctamente."),
             ApiResponse(responseCode = "400", description = "Datos inválidos.")
         ]
     )
@@ -87,12 +87,12 @@ class BloqueController(
     )
     @PutMapping("/{id}")
     fun actualizarBloque(
-        @PathVariable id:Long,
+        @PathVariable id: Long,
         @Valid
         @RequestBody
         request: UpdateBloqueRequest
     ): BloqueResponse{
-        return bloqueService.actualizarBloque(id,request)
+        return bloqueService.actualizarBloque(id, request)
     }
 
     @Operation(
@@ -107,7 +107,7 @@ class BloqueController(
     )
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun eliminarBloque(@PathVariable id:Long){
+    fun eliminarBloque(@PathVariable id: Long){
         bloqueService.eliminarBloque(id)
     }
 }
