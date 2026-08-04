@@ -34,7 +34,7 @@ class SedeServiceImpl(
 
     
     override fun listarSedes(): List<SedeResponse> {
-        return sedeRepository.findByActivoTrue().map { it.toResponse() }
+        return sedeRepository.findAllByActivoTrue().map { it.toResponse() }
     }
 
     override fun obtenerSedePorId(id: Long): SedeResponse {

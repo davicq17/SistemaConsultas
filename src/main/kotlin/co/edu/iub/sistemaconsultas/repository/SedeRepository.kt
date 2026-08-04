@@ -9,7 +9,7 @@ interface SedeRepository: JpaRepository<Sede, Long> {
 
     fun findByNombre(nombre: String): Sede?
 
-    fun findByActivoTrue(): List<Sede>
+    fun findAllByActivoTrue(): List<Sede>
 
     fun findByIdAndActivoTrue(id: Long): Sede?
 }
