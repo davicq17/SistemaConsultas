@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SistemaConsultas
+    name: sistema_consultas
 
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/sistema_consultas}
