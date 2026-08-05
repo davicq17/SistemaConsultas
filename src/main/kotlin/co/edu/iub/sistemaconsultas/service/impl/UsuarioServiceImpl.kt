@@ -1,7 +1,7 @@
 package co.edu.iub.sistemaconsultas.service.impl
 
-import co.edu.iub.sistemaconsultas.dto.UpdateUsuarioRequest
-import co.edu.iub.sistemaconsultas.dto.UsuarioResponse
+import co.edu.iub.sistemaconsultas.dto.usuario.UpdateUsuarioRequest
+import co.edu.iub.sistemaconsultas.dto.usuario.UsuarioResponse
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.repository.ProgAcademicoRepository

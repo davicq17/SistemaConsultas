@@ -1,8 +1,8 @@
 package co.edu.iub.sistemaconsultas.service.impl
 
-import co.edu.iub.sistemaconsultas.dto.ProgAcademicoResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroProgAcademicoRequest
-import co.edu.iub.sistemaconsultas.dto.UpdateProgAcademicoRequest
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.ProgAcademicoResponse
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.RegistroProgAcademicoRequest
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.UpdateProgAcademicoRequest
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.mapper.toResponse

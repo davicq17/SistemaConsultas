@@ -1,4 +1,4 @@
-package co.edu.iub.sistemaconsultas.dto
+package co.edu.iub.sistemaconsultas.dto.programaAcademico
 
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Size

@@ -1,8 +1,8 @@
 package co.edu.iub.sistemaconsultas.controller
 
-import co.edu.iub.sistemaconsultas.dto.ModuloResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroModuloRequest
-import co.edu.iub.sistemaconsultas.dto.UpdateModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.ModuloResponse
+import co.edu.iub.sistemaconsultas.dto.modulo.RegistroModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.UpdateModuloRequest
 import co.edu.iub.sistemaconsultas.service.ModuloService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -42,7 +42,7 @@ class ModuloController(
         request: RegistroModuloRequest
     ): ModuloResponse{
 
-        return moduloService.registrarModulo(request)
+        return moduloService.registrar(request)
 
     }
 

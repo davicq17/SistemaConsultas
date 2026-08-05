@@ -1,4 +1,4 @@
-package co.edu.iub.sistemaconsultas.dto
+package co.edu.iub.sistemaconsultas.dto.auth
 
 data class LoginResponse(
 

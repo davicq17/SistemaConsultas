@@ -1,12 +1,12 @@
 package co.edu.iub.sistemaconsultas.service
 
-import co.edu.iub.sistemaconsultas.dto.ModuloResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroModuloRequest
-import co.edu.iub.sistemaconsultas.dto.UpdateModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.ModuloResponse
+import co.edu.iub.sistemaconsultas.dto.modulo.RegistroModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.UpdateModuloRequest
 
 interface ModuloService {
 
-    fun registrarModulo(
+    fun registrar(
         request: RegistroModuloRequest
     ): ModuloResponse
 

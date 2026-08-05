@@ -1,6 +1,6 @@
 package co.edu.iub.sistemaconsultas.mapper
 
-import co.edu.iub.sistemaconsultas.dto.UsuarioResponse
+import co.edu.iub.sistemaconsultas.dto.usuario.UsuarioResponse
 import co.edu.iub.sistemaconsultas.model.Usuario
 
 fun Usuario.toResponse(): UsuarioResponse{

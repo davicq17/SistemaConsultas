@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*
 )
 @SecurityRequirement(name = "Bearer Authentication")
 @RestController
-@RequestMapping("/recursos_fisicos")
+@RequestMapping("/recursos-fisicos")
 class RecursoFisicoController(
     private val rfService: RecursoFisicoService
 ) {

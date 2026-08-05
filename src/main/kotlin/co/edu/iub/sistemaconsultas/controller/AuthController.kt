@@ -1,10 +1,10 @@
 package co.edu.iub.sistemaconsultas.controller
 
-import co.edu.iub.sistemaconsultas.dto.ForgotPasswordRequest
-import co.edu.iub.sistemaconsultas.dto.LoginRequest
-import co.edu.iub.sistemaconsultas.dto.LoginResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
-import co.edu.iub.sistemaconsultas.dto.ResetPasswordRequest
+import co.edu.iub.sistemaconsultas.dto.auth.ForgotPasswordRequest
+import co.edu.iub.sistemaconsultas.dto.auth.LoginRequest
+import co.edu.iub.sistemaconsultas.dto.auth.LoginResponse
+import co.edu.iub.sistemaconsultas.dto.usuario.RegistroUsuarioRequest
+import co.edu.iub.sistemaconsultas.dto.auth.ResetPasswordRequest
 import co.edu.iub.sistemaconsultas.service.AuthService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
