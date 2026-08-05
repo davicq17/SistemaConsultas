@@ -1,7 +1,7 @@
 package co.edu.iub.sistemaconsultas.service
 
-import co.edu.iub.sistemaconsultas.dto.UpdateUsuarioRequest
-import co.edu.iub.sistemaconsultas.dto.UsuarioResponse
+import co.edu.iub.sistemaconsultas.dto.usuario.UpdateUsuarioRequest
+import co.edu.iub.sistemaconsultas.dto.usuario.UsuarioResponse
 
 interface UsuarioService {
 

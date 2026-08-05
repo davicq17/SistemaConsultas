@@ -1,7 +1,9 @@
-package co.edu.iub.sistemaconsultas.dto
+package co.edu.iub.sistemaconsultas.dto.usuario
 
+import co.edu.iub.sistemaconsultas.model.enums.Rol
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Size
 
 data class RegistroUsuarioRequest(
@@ -30,8 +32,8 @@ data class RegistroUsuarioRequest(
     )
     val password: String,
 
-    @field:NotBlank(message = "El rol es obligatorio")
-    val rol: String,
+    @field:NotNull(message = "El rol es obligatorio")
+    val rol: Rol,
 
     val programaId: Long?
 )

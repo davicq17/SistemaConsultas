@@ -1,8 +1,8 @@
 package co.edu.iub.sistemaconsultas.service.impl
 
-import co.edu.iub.sistemaconsultas.dto.ModuloResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroModuloRequest
-import co.edu.iub.sistemaconsultas.dto.UpdateModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.ModuloResponse
+import co.edu.iub.sistemaconsultas.dto.modulo.RegistroModuloRequest
+import co.edu.iub.sistemaconsultas.dto.modulo.UpdateModuloRequest
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.mapper.toResponse
@@ -16,7 +16,7 @@ class ModuloServiceImpl (
     private val moduloRepository: ModuloRepository
 ): ModuloService {
 
-    override fun registrarModulo(
+    override fun registrar(
         request: RegistroModuloRequest
     ): ModuloResponse {
 

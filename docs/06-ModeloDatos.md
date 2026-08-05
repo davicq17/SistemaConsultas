@@ -236,7 +236,7 @@ El estado de la solicitud se controla mediante la enumeración `EstadoSolicitud`
 
 La prioridad también se representa mediante una enumeración (`PrioridadSolicitud`) para garantizar consistencia en la información.
 
-La entidad implementa eliminación lógica mediante el atributo `activo`, conservando el historial del sistema.
+No implementa eliminación lógica debido a que representa el ciclo de vida completo de una consulta académica y constituye información histórica que debe conservarse permanentemente.
 
 ---
 

@@ -1,14 +1,14 @@
 package co.edu.iub.sistemaconsultas.service.impl
 
-import co.edu.iub.sistemaconsultas.dto.ForgotPasswordRequest
-import co.edu.iub.sistemaconsultas.dto.LoginRequest
-import co.edu.iub.sistemaconsultas.dto.LoginResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroUsuarioRequest
-import co.edu.iub.sistemaconsultas.dto.ResetPasswordRequest
+import co.edu.iub.sistemaconsultas.dto.auth.ForgotPasswordRequest
+import co.edu.iub.sistemaconsultas.dto.auth.LoginRequest
+import co.edu.iub.sistemaconsultas.dto.auth.LoginResponse
+import co.edu.iub.sistemaconsultas.dto.usuario.RegistroUsuarioRequest
+import co.edu.iub.sistemaconsultas.dto.auth.ResetPasswordRequest
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.model.PasswordResetToken
-import co.edu.iub.sistemaconsultas.model.Rol
+import co.edu.iub.sistemaconsultas.model.enums.Rol
 import co.edu.iub.sistemaconsultas.model.Usuario
 import co.edu.iub.sistemaconsultas.repository.PasswordResetTokenRepository
 import co.edu.iub.sistemaconsultas.repository.ProgAcademicoRepository
@@ -79,7 +79,7 @@ class AuthServiceImpl(
             apellido = request.apellido,
             correo = request.correo,
             password = requireNotNull(passwordEncoder.encode(request.password)),
-            rol = Rol.valueOf(request.rol.uppercase()),
+            rol = request.rol,
             programa = programa
         )
 

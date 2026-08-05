@@ -1,6 +1,6 @@
-package co.edu.iub.sistemaconsultas.dto
+package co.edu.iub.sistemaconsultas.dto.usuario
 
-import co.edu.iub.sistemaconsultas.model.Rol
+import co.edu.iub.sistemaconsultas.model.enums.Rol
 import java.time.LocalDateTime
 
 data class UsuarioResponse(

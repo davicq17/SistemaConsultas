@@ -1,8 +1,8 @@
 package co.edu.iub.sistemaconsultas.controller
 
-import co.edu.iub.sistemaconsultas.dto.ProgAcademicoResponse
-import co.edu.iub.sistemaconsultas.dto.RegistroProgAcademicoRequest
-import co.edu.iub.sistemaconsultas.dto.UpdateProgAcademicoRequest
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.ProgAcademicoResponse
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.RegistroProgAcademicoRequest
+import co.edu.iub.sistemaconsultas.dto.programaAcademico.UpdateProgAcademicoRequest
 import co.edu.iub.sistemaconsultas.service.ProgAcademicoService
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
