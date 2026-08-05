@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Estudiante</title>
+    <link rel="stylesheet" href="assets/css/registro.css">
+</head>
+<body>
+
+
+<div class="registro-container">
+    <h4><img src="assets/img/logo.png" alt="Mi Foto" width="350"> </h4>
+    <form id="registroForm">
+
+
+        <label for="nombreCompleto">Nombre Completo:</label>
+        <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+
+        <label for="numeroDocumento">Número de Documento:</label>
+        <input type="text" id="numeroDocumento" name="numeroDocumento" required>
+
+        <label for="correo">Correo Electronico:</label>
+        <input type="text" id="correo" name="correo" required>
+
+
+        <label>Programa Académico:</label>
+        <select id="programaAcademico" required>
+            <option value="">Seleccione un programa</option>
+        </select>
+
+        <label for="contra">Contraseña:</label>
+        <input type="text" id="contra" name="contra" required>
+
+
+        <button type="submit">Registrar</button>
+
+    </form>
+
+
+    <a href="index.html">Regreso</a>
+</div>
+
+<script src="Javascript/Registro.js"></script>
+</body>
+</html>

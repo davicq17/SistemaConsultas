@@ -1,0 +1,112 @@
+/* ===== Reset ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9fafc;
+}
+
+/* ===== Body: centrado ===== */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;  /* espacio para móviles */
+    min-height: 100vh;
+}
+
+/* ===== Contenedor login ===== */
+.login-container {
+    width: 350px;
+    max-width: 100%;
+    background: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    animation: fadeEffect 0.4s ease;
+}
+
+/* ===== Logo ===== */
+.login-container img {
+    display: block;
+    margin: 0 auto 15px;
+    max-width: 200px;
+    width: 80%;
+    height: auto;
+}
+
+/* ===== Título ===== */
+.Textologin h1 {
+    font-size: 1.5rem;
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+/* ===== Inputs ===== */
+.login-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-container input:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 6px rgba(30,60,114,0.2);
+    outline: none;
+}
+
+/* ===== Botón ===== */
+.login-container button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    background: #f1c40f;
+    color: #1e3c72;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.15s;
+}
+
+.login-container button:hover {
+    background: #d4ac0d;
+    transform: translateY(-2px);
+}
+
+/* ===== Enlaces y mensaje de error ===== */
+.login-container a {
+    display: block;
+    margin-top: 14px;
+    color: #1e3c72;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.login-container a:hover {
+    color: #274a91;
+}
+
+#error-message {
+    color: #c0392b;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* ===== Animación fade ===== */
+@keyframes fadeEffect {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

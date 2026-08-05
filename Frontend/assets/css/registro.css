@@ -1,0 +1,94 @@
+/* ===== Reset ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f9fafc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* ===== Registro Container ===== */
+.registro-container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+/* ===== Título ===== */
+.registro-container h1 {
+    color: #1e3c72;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+/* ===== Formulario ===== */
+form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e3c72;
+}
+
+form input,
+form select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 6px rgba(30,60,114,0.2);
+}
+
+/* ===== Botón ===== */
+form button {
+    width: 100%;
+    padding: 12px;
+    background: #f1c40f;
+    color: #1e3c72;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+form button:hover {
+    background: #d4ac0d;
+}
+
+/* ===== Enlaces ===== */
+a {
+    display: inline-block;
+    margin-top: 15px;
+    color: #1e3c72;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #274a91;
+}
