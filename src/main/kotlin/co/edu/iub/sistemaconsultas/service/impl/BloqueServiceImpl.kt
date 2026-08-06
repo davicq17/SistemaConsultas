@@ -24,7 +24,7 @@ class BloqueServiceImpl(
         val sede = sedeRepository.findByIdAndActivoTrue(request.sedeId)
             ?: throw ResourceNotFoundException("La sede no existe.")
 
-        if(bloqueRepository.existsByNombreAndSede(request.nombre, sede)){
+        if(bloqueRepository.existsByNombreAndSedeAndActivoTrue(request.nombre, sede)){
             throw BadRequestException("Ya existe un bloque con ese nombre en esta sede.")
         }
 
@@ -54,7 +54,7 @@ class BloqueServiceImpl(
             ?: throw ResourceNotFoundException("Bloque no encontrado.")
 
         if(bloque.nombre != request.nombre){
-            val bloqueExistente = bloqueRepository.findByNombreAndSede(request.nombre, bloque.sede)
+            val bloqueExistente = bloqueRepository.findByNombreAndSedeAndActivoTrue(request.nombre, bloque.sede)
 
             if(bloqueExistente != null && bloqueExistente.id != bloque.id) {
                 throw BadRequestException("Ya existe un bloque con ese nombre en esta sede.")

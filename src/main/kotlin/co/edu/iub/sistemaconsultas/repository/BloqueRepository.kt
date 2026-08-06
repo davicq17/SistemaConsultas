@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface BloqueRepository: JpaRepository<Bloque, Long> {
 
-    fun existsByNombreAndSede(nombre: String, sede: Sede): Boolean
+    fun existsByNombreAndSedeAndActivoTrue(nombre: String, sede: Sede): Boolean
 
-    fun findByNombreAndSede(nombre: String, sede: Sede): Bloque?
+    fun findByNombreAndSedeAndActivoTrue(nombre: String, sede: Sede): Bloque?
 
     fun findAllByActivoTrue(): List<Bloque>
 

@@ -24,7 +24,7 @@ class RecursoFisicoServiceImpl(
         val bloque = bloqueRepository.findByIdAndActivoTrue(request.bloqueId)
             ?: throw ResourceNotFoundException("No existe ese bloque.")
 
-        if(recursoFisicoRepository.existsByNombreAndBloque(request.nombre, bloque)){
+        if(recursoFisicoRepository.existsByNombreAndBloqueAndActivoTrue(request.nombre, bloque)){
             throw BadRequestException("Ya existe un RF con ese nombre en este bloque.")
         }
 
@@ -55,7 +55,7 @@ class RecursoFisicoServiceImpl(
             ?: throw ResourceNotFoundException("Recurso físico no encontrado.")
 
         if(recursoFisico.nombre != request.nombre){
-            val rfExistente = recursoFisicoRepository.findByNombreAndBloque(request.nombre, recursoFisico.bloque)
+            val rfExistente = recursoFisicoRepository.findByNombreAndBloqueAndActivoTrue(request.nombre, recursoFisico.bloque)
 
             if(rfExistente != null && rfExistente.id != recursoFisico.id){
                 throw BadRequestException(

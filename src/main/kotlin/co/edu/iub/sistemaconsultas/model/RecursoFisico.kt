@@ -15,12 +15,7 @@ import jakarta.persistence.Table
 import jakarta.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "recursos_fisicos",
-    uniqueConstraints = [
-        UniqueConstraint(
-            columnNames = ["nombre", "bloque_id"]
-        )
-    ])
+@Table(name = "recursos_fisicos",)
 class RecursoFisico (
 
     @Id

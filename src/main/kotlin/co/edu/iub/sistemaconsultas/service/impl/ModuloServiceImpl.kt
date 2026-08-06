@@ -20,7 +20,7 @@ class ModuloServiceImpl (
         request: RegistroModuloRequest
     ): ModuloResponse {
 
-        val moduloExistente = moduloRepository.findByNombre(request.nombre)
+        val moduloExistente = moduloRepository.findByNombreAndActivoTrue(request.nombre)
 
         if(moduloExistente != null){
             throw BadRequestException("Ya existe un módulo con ese nombre")
@@ -60,7 +60,7 @@ class ModuloServiceImpl (
 
         if(modulo.nombre != request.nombre){
 
-            val moduloExistente = moduloRepository.findByNombre(request.nombre)
+            val moduloExistente = moduloRepository.findByNombreAndActivoTrue(request.nombre)
 
             if(moduloExistente != null && moduloExistente.id != modulo.id){
                 throw BadRequestException(
