@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface RecursoFisicoRepository: JpaRepository<RecursoFisico, Long> {
 
-    fun existsByNombreAndBloque(nombre: String, bloque: Bloque): Boolean
+    fun existsByNombreAndBloqueAndActivoTrue(nombre: String, bloque: Bloque): Boolean
 
-    fun findByNombreAndBloque(nombre: String, bloque: Bloque): RecursoFisico?
+    fun findByNombreAndBloqueAndActivoTrue(nombre: String, bloque: Bloque): RecursoFisico?
 
     fun findAllByActivoTrue(): List<RecursoFisico>
 

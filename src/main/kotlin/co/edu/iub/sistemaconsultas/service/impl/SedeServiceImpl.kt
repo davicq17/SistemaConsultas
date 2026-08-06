@@ -19,7 +19,7 @@ class SedeServiceImpl(
 ): SedeService {
 
     override fun registrarSede(request: RegistroSedeRequest): SedeResponse {
-        if (sedeRepository.existsByNombre(request.nombre)){
+        if (sedeRepository.existsByNombreAndActivoTrue(request.nombre)){
             throw BadRequestException("Ya existe una sede con ese nombre.")
         }
 
@@ -49,7 +49,7 @@ class SedeServiceImpl(
             ?: throw ResourceNotFoundException("Sede no encontrada.")
 
         if(sede.nombre != request.nombre){
-            val sedeExistente = sedeRepository.findByNombre(request.nombre)
+            val sedeExistente = sedeRepository.findByNombreAndActivoTrue(request.nombre)
 
             if(sedeExistente != null && sedeExistente.id != sede.id ) {
                 throw BadRequestException(

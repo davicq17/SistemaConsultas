@@ -10,5 +10,5 @@ interface ProgAcademicoRepository :
 
     fun findByIdAndActivoTrue(id: Long): ProgramaAcademico?
 
-    fun findByNombre(nombre: String): ProgramaAcademico?
+    fun findByNombreAndActivoTrue(nombre: String): ProgramaAcademico?
 }

@@ -17,7 +17,7 @@ class Sede (
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, length = 100)
     var nombre: String = "",
 
     @Column(nullable = false)

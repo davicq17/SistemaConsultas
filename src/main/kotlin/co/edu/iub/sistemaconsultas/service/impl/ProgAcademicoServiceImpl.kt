@@ -20,7 +20,7 @@ class ProgAcademicoServiceImpl (
         request: RegistroProgAcademicoRequest
     ): ProgAcademicoResponse {
 
-        val programaExistente = programaRepository.findByNombre(request.nombre)
+        val programaExistente = programaRepository.findByNombreAndActivoTrue(request.nombre)
 
         if (programaExistente != null) {
             throw BadRequestException("Ya existe un programa académico con ese nombre.")
@@ -66,7 +66,7 @@ class ProgAcademicoServiceImpl (
 
         if (programa.nombre != request.nombre) {
 
-            val programaExistente = programaRepository.findByNombre(request.nombre)
+            val programaExistente = programaRepository.findByNombreAndActivoTrue(request.nombre)
 
             if (
                 programaExistente != null && programaExistente.id != programa.id
