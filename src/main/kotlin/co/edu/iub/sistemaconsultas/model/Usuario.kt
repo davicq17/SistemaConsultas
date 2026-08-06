@@ -1,5 +1,6 @@
 package co.edu.iub.sistemaconsultas.model
 
+import co.edu.iub.sistemaconsultas.model.enums.Rol
 import jakarta.persistence.*
 import java.time.LocalDateTime
 

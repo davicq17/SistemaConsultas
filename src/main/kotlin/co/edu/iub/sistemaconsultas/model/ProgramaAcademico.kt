@@ -10,8 +10,11 @@ class ProgramaAcademico(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
 
-    @Column(nullable = false, unique = true, length = 150)
+    @Column(nullable = false, length = 150)
     var nombre: String = "",
+
+    @Column(nullable = false)
+    var activo: Boolean = true,
 
     @OneToMany(mappedBy = "programa")
     var usuarios: MutableList<Usuario> = mutableListOf()

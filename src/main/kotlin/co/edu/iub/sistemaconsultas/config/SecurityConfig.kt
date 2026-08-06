@@ -8,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 class SecurityConfig(
@@ -25,12 +28,18 @@ class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
 
         http
+            .cors { }
             .csrf { it.disable() }
             .authorizeHttpRequests {
-
                 it.requestMatchers(
                     "/auth/login",
-                    "/auth/register"
+                    "/auth/register",
+                    "/auth/forgot-password",
+                    "/auth/reset-password",
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html",
+                    "/error"
                 ).permitAll()
 
                 it.anyRequest().authenticated()
@@ -47,4 +56,21 @@ class SecurityConfig(
 
         return http.build()
     }
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+
+        val configuration = CorsConfiguration()
+
+        configuration.allowedOriginPatterns = listOf("*")
+        configuration.allowedMethods = listOf("*")
+        configuration.allowedHeaders = listOf("*")
+        val source = UrlBasedCorsConfigurationSource()
+        configuration.allowCredentials = true
+        source.registerCorsConfiguration("/**", configuration)
+
+        return source
+    }
+
+
 }

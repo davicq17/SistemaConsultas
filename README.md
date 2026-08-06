@@ -1,10 +1,41 @@
 # Sistema de Gestión de Consultas Académicas
 
-## Descripción
+![Kotlin](https://img.shields.io/badge/Kotlin-2.2.21-7F52FF?logo=kotlin&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.7-6DB33F?logo=springboot&logoColor=white)
+![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
+![Gradle](https://img.shields.io/badge/Gradle-9.5.1-02303A?logo=gradle&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring_Security-Enabled-6DB33F?logo=springsecurity&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-0.12.6-000000?logo=jsonwebtokens&logoColor=white)
+![OpenAPI](https://img.shields.io/badge/OpenAPI-2.8.10-85EA2D?logo=swagger&logoColor=black)
+![Architecture](https://img.shields.io/badge/Architecture-Layered-blue)
+![API](https://img.shields.io/badge/API-REST-blueviolet)
+![Documentation](https://img.shields.io/badge/Documentation-Complete-brightgreen)
+![Status](https://img.shields.io/badge/Status-In_Development-orange)
+![License](https://img.shields.io/badge/License-Educational_Project-lightgrey)
 
-Sistema backend desarrollado con **Kotlin + Spring Boot** para la gestión de consultas académicas entre estudiantes, docentes y administradores.
+Backend desarrollado con **Kotlin + Spring Boot** para la gestión de consultas académicas entre estudiantes, docentes y administradores.
 
-Este proyecto corresponde a la migración de una aplicación originalmente desarrollada en Flask (Python), rediseñando completamente la arquitectura para aplicar buenas prácticas de desarrollo backend utilizando Spring Boot.
+El proyecto fue diseñado siguiendo una arquitectura por capas, aplicando buenas prácticas de desarrollo backend, principios de separación de responsabilidades y una estrategia de autenticación basada en JWT.
+
+---
+
+# Características principales
+
+Actualmente el sistema implementa las siguientes funcionalidades:
+
+- Autenticación mediante JWT.
+- Registro de usuarios.
+- Inicio de sesión.
+- Recuperación segura de contraseña.
+- CRUD de Usuarios.
+- CRUD de Programas Académicos.
+- CRUD de Módulos.
+- Bean Validation.
+- Manejo global de excepciones.
+- Documentación interactiva con Swagger/OpenAPI.
+- Eliminación lógica de registros.
+- Arquitectura por capas.
+- Documentación técnica completa.
 
 ---
 
@@ -19,33 +50,42 @@ Este proyecto corresponde a la migración de una aplicación originalmente desar
 - MySQL
 - Gradle Kotlin DSL
 - Java 17
+- Swagger / OpenAPI
 - IntelliJ IDEA
 
 ---
 
 # Arquitectura
 
-El proyecto sigue una arquitectura por capas.
+El proyecto implementa una arquitectura por capas con el objetivo de mantener una adecuada separación de responsabilidades.
 
-```
+```text
 Controller
-    ↓
+
+↓
+
 Service
-    ↓
+
+↓
+
 Repository
-    ↓
+
+↓
+
 JPA
-    ↓
+
+↓
+
 MySQL
 ```
 
-La lógica de negocio se implementa exclusivamente en la capa de servicios.
+La lógica de negocio se implementa exclusivamente en la capa de servicios, manteniendo los Controllers ligeros y enfocados únicamente en recibir y responder solicitudes HTTP.
 
 ---
 
 # Estructura del proyecto
 
-```
+```text
 src
 └── main
     └── kotlin
@@ -54,6 +94,7 @@ src
             ├── controller
             ├── dto
             ├── exception
+            ├── mapper
             ├── model
             ├── repository
             ├── service
@@ -63,11 +104,58 @@ src
 
 ---
 
+# Requisitos
+
+Para ejecutar el proyecto se requiere:
+
+- Java 17
+- Gradle
+- MySQL
+- IntelliJ IDEA (recomendado)
+
+---
+
+# Instalación
+
+## 1. Clonar el repositorio
+
+```bash
+git clone <URL_DEL_REPOSITORIO>
+```
+
+## 2. Ingresar al proyecto
+
+```bash
+cd SistemaConsultas
+```
+
+## 3. Configurar las variables de entorno
+
+Copiar el archivo:
+
+```text
+.env.example
+```
+
+y configurar los valores correspondientes al entorno local.
+
+## 4. Ejecutar la aplicación
+
+Desde IntelliJ IDEA.
+
+O utilizando Gradle:
+
+```bash
+./gradlew bootRun
+```
+
+---
+
 # Variables de entorno
 
 El proyecto utiliza variables de entorno para evitar almacenar información sensible dentro del código fuente.
 
-Variables necesarias:
+Variables requeridas:
 
 - DB_URL
 - DB_USERNAME
@@ -76,30 +164,71 @@ Variables necesarias:
 - JWT_SECRET
 - JWT_EXPIRATION_MINUTES
 
-Se incluye un archivo `.env.example` con la configuración de referencia.
+Consultar el archivo `.env.example` para conocer el formato esperado.
 
 ---
 
-# Estado actual del proyecto
+# Documentación
 
-Actualmente se encuentra implementado:
+La documentación técnica del proyecto se encuentra organizada en la carpeta **docs**.
+
+| Documento                                     | Descripción                                |
+|-----------------------------------------------|--------------------------------------------|
+| [01-Arquitectura.md](docs/01-Arquitectura.md) | Arquitectura general del sistema           |
+| [02-Convenciones.md](docs/02-Convenciones.md) | Convenciones de desarrollo                 |
+| [03-FlujoGit.md](docs/03-FlujoGit.md)         | Estrategia de trabajo con Git              |
+| [04-Seguridad.md](docs/04-Seguridad.md)       | Arquitectura e implementación de seguridad |
+| [05-API.md](docs/05-API.md)                   | Convenciones generales de la API REST      |
+| [06-ModeloDatos.md](docs/06-ModeloDatos.md)   | Dominio y entidades de trabajo             |
+
+---
+
+# Estado del proyecto
+
+## Funcionalidades implementadas
 
 - Autenticación mediante JWT.
 - Registro de usuarios.
 - Inicio de sesión.
-- Encriptación de contraseñas con BCrypt.
-- Persistencia con Spring Data JPA.
-- Configuración mediante variables de entorno.
-
-Próximamente:
-
-- Filtro JWT.
-- Protección completa de la API.
+- Recuperación de contraseña.
 - CRUD de Usuarios.
 - CRUD de Programas Académicos.
 - CRUD de Módulos.
-- CRUD de Solicitudes.
-- CRUD de Consultas.
+- Bean Validation.
+- Swagger/OpenAPI.
+- Manejo global de excepciones.
+- Eliminación lógica.
+
+## Funcionalidades pendientes
+
+- Integración del módulo de Solicitudes de Consulta.
+- Restricción para impedir eliminar Programas Académicos con usuarios activos asociados.
+- Pruebas unitarias con JUnit y Mockito.
+
+---
+
+# Roadmap
+
+## Completado
+
+- Seguridad con Spring Security.
+- JWT.
+- BCrypt.
+- CRUD Usuarios.
+- CRUD Programas Académicos.
+- CRUD Módulos.
+- Recuperación de contraseña.
+- Bean Validation.
+- Swagger/OpenAPI.
+- Documentación técnica.
+
+## Próximas mejoras
+
+- Integración de Solicitudes de Consulta.
+- Pruebas unitarias.
+- Mayor cobertura de pruebas.
+- Optimización de reglas de negocio.
+- Mejoras de seguridad (Refresh Tokens, MFA, auditoría).
 
 ---
 
@@ -107,18 +236,17 @@ Próximamente:
 
 - David Carrillo
 - Martin Clavijo
-- (Pendiente)
 
 ---
 
 # Autor
 
-Proyecto desarrollado con fines académicos aplicando buenas prácticas de desarrollo backend utilizando Kotlin y Spring Boot.
+Proyecto desarrollado con fines académicos como parte del proceso de formación en desarrollo Backend utilizando Kotlin y Spring Boot, aplicando buenas prácticas de arquitectura de software y desarrollo profesional.
 
 ---
-## Documentación
 
-- [Arquitectura](docs/Arquitectura.md)
-- [Flujo de Git](docs/FlujoGit.md)
-- [Convenciones](docs/Convenciones.md)
-- [Integrantes](docs/Integrantes.md)
+# Licencia
+
+Este proyecto tiene fines exclusivamente académicos.
+
+Su uso, modificación o distribución deberá respetar las políticas establecidas por la institución educativa y los autores del proyecto.
