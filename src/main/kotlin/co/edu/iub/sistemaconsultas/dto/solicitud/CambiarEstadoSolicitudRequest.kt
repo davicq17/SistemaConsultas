@@ -4,5 +4,6 @@ import co.edu.iub.sistemaconsultas.model.enums.EstadoSolicitud
 
 data class CambiarEstadoSolicitudRequest(
 
-    val estado: EstadoSolicitud
+    val estado: EstadoSolicitud,
+    val motivo: String?
 )

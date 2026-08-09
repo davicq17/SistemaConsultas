@@ -5,11 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface UsuarioRepository : JpaRepository<Usuario, Long>{
 
-    fun findByCorreo(correo: String): Usuario?
+    fun findByCorreoAndActivoTrue(correo: String): Usuario?
 
-    fun existsByCorreo(correo: String): Boolean
+    fun existsByCorreoAndActivoTrue(correo: String): Boolean
 
-    fun existsByIdentificacion(identificacion: String): Boolean
+    fun existsByIdentificacionAndActivoTrue(identificacion: String): Boolean
 
     fun findAllByActivoTrue(): List<Usuario>
 

@@ -14,8 +14,10 @@ import co.edu.iub.sistemaconsultas.repository.ModuloRepository
 import co.edu.iub.sistemaconsultas.repository.RecursoFisicoRepository
 import co.edu.iub.sistemaconsultas.repository.SolicitudConsultaRepository
 import co.edu.iub.sistemaconsultas.repository.UsuarioRepository
+import co.edu.iub.sistemaconsultas.service.NotificacionService
 import co.edu.iub.sistemaconsultas.service.SolicitudConsultaService
 import co.edu.iub.sistemaconsultas.util.NumeroConsultaGenerator
+import co.edu.iub.sistemaconsultas.util.SecurityUtils
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDate
@@ -27,17 +29,18 @@ class SolicitudConsultaServiceImpl(
     private val solicitudRepository: SolicitudConsultaRepository,
     private val usuarioRepository: UsuarioRepository,
     private val moduloRepository: ModuloRepository,
-    private val recursoFisicoRepository: RecursoFisicoRepository
+    private val recursoFisicoRepository: RecursoFisicoRepository,
+    private val notificacionService: NotificacionService
 ) : SolicitudConsultaService {
 
     override fun registrar(request: RegistroSolicitudConsultaRequest): SolicitudConsultaResponse {
-
         if(request.fechaConsulta.isBefore(LocalDate.now())){
             throw BadRequestException(
                 "La fecha de la consulta no puede ser anterior a la fecha actual."
             )
         }
-        val estudiante = obtenerEstudiante(request.estudianteId)
+
+        val estudiante = obtenerEstudiante()
         val docente = obtenerDocente(request.docenteId)
         val modulo = obtenerModulo(request.moduloId)
         val ultimoId = solicitudRepository.obtenerUltimoIdRegistrado()
@@ -58,6 +61,9 @@ class SolicitudConsultaServiceImpl(
         )
 
         val solicitudGuardada = solicitudRepository.save(solicitudConsulta)
+
+        notificacionService.notificarNuevaSolicitud(solicitudGuardada)
+
         return solicitudGuardada.toResponse()
     }
 
@@ -79,8 +85,22 @@ class SolicitudConsultaServiceImpl(
             )
         }
 
+        val usuarioActual = obtenerUsuarioAuth()
         val solicitud = obtenerSolicitud(id)
         val modulo = obtenerModulo(request.moduloId)
+        val fechaAnterior = solicitud.fechaConsulta
+        val horaAnterior = solicitud.horaConsulta
+        val destinatario = obtenerDestinatario(solicitud,usuarioActual)
+
+        val cambioAgenda =
+            fechaAnterior != request.fechaConsulta ||
+                horaAnterior != request.horaConsulta
+
+        if (cambioAgenda && request.motivo.isNullOrBlank()) {
+            throw BadRequestException(
+                "Debe indicar un motivo cuando se modifica la fecha o la hora de la consulta."
+            )
+        }
 
         solicitud.apply {
             prioridad = request.prioridad
@@ -92,6 +112,12 @@ class SolicitudConsultaServiceImpl(
         }
 
         val solicitudGuardada = solicitudRepository.save(solicitud)
+
+        if(fechaAnterior != solicitudGuardada.fechaConsulta ||
+            horaAnterior != solicitudGuardada.horaConsulta
+            ){
+            notificacionService.notificarCambioAgenda(solicitudGuardada, destinatario, request.motivo!!)
+        }
 
         return solicitudGuardada.toResponse()
     }
@@ -111,17 +137,29 @@ class SolicitudConsultaServiceImpl(
             recursoFisico = obtenerRecursoFisico(request.recursoFisicoId)
         }
 
-        return solicitudRepository.save(solicitud).toResponse()
+        val solicitudGuardada = solicitudRepository.save(solicitud)
+
+        notificacionService.notificarAsignacionRecurso(solicitudGuardada, solicitudGuardada.estudiante)
+
+        return solicitudGuardada.toResponse()
     }
 
     override fun cambiarEstado(id: Long, request: CambiarEstadoSolicitudRequest): SolicitudConsultaResponse {
+        val usuarioActual = obtenerUsuarioAuth()
         val  solicitud = obtenerSolicitud(id)
         validarCambioEstado(solicitud.estado, request.estado)
+        validarMotivo(request.estado, request.motivo)
+
         solicitud.apply {
             estado = request.estado
         }
 
-        return solicitudRepository.save(solicitud).toResponse()
+        val solicitudGuardada = solicitudRepository.save(solicitud)
+        val destinatario = obtenerDestinatario(solicitudGuardada,usuarioActual)
+
+        notificacionService.notificarCambioEstado(solicitudGuardada,destinatario, request.motivo)
+
+        return solicitudGuardada.toResponse()
     }
 
     override fun reasignarDocente(id: Long, request: ReasignarDocenteRequest): SolicitudConsultaResponse {
@@ -137,13 +175,23 @@ class SolicitudConsultaServiceImpl(
             docente = obtenerDocente(request.docenteId)
         }
 
-        return solicitudRepository.save(solicitud).toResponse()
+        val solicitudGuardada = solicitudRepository.save(solicitud)
+
+        notificacionService.notificarReasignacion(solicitudGuardada, solicitudGuardada.docente)
+
+        return solicitudGuardada.toResponse()
+    }
+
+    private fun obtenerUsuarioAuth(): Usuario{
+        val correo = SecurityUtils.obtenerCorreo()
+
+        return usuarioRepository.findByCorreoAndActivoTrue(correo)
+            ?: throw ResourceNotFoundException("Usuario no encontrado.")
     }
 
 
-    private fun obtenerEstudiante(id: Long): Usuario{
-        val usuario = usuarioRepository.findByIdAndActivoTrue(id)
-            ?: throw ResourceNotFoundException("Estudiante no encontrado.")
+    private fun obtenerEstudiante(): Usuario{
+        val usuario = obtenerUsuarioAuth()
         if(usuario.rol != Rol.ESTUDIANTE){
             throw BadRequestException("El usuario indicado no tiene el rol ESTUDIANTE.")
         }
@@ -174,6 +222,31 @@ class SolicitudConsultaServiceImpl(
             ?: throw ResourceNotFoundException("Recurso físico no encontrado.")
     }
 
+    private fun obtenerDestinatario(
+        solicitud: SolicitudConsulta,
+        usuarioActual: Usuario
+    ): Usuario{
+
+        return when (usuarioActual.id){
+            solicitud.estudiante.id -> solicitud.docente
+            solicitud.docente.id -> solicitud.estudiante
+            else -> throw BadRequestException(
+                "El usuario no pertenece a esta solicitud."
+            )
+        }
+    }
+
+    private fun validarMotivo(estado: EstadoSolicitud, motivo: String?) {
+        if (
+            estado == EstadoSolicitud.RECHAZADA ||
+            estado == EstadoSolicitud.CANCELADA
+        ) {
+            if (motivo.isNullOrBlank()) {
+                throw BadRequestException("Debe indicar un motivo para $estado.")
+            }
+        }
+    }
+
     private fun validarCambioEstado(
         estadoActual: EstadoSolicitud,
         nuevoEstado: EstadoSolicitud
@@ -198,6 +271,7 @@ class SolicitudConsultaServiceImpl(
 
             EstadoSolicitud.EN_PROCESO -> setOf(
                 EstadoSolicitud.RESUELTA,
+                EstadoSolicitud.CERRADA,
                 EstadoSolicitud.CANCELADA
             )
 

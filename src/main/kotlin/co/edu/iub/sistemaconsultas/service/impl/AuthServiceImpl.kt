@@ -57,11 +57,11 @@ class AuthServiceImpl(
 
     override fun registrar(request: RegistroUsuarioRequest) {
 
-        if(usuarioRepository.existsByCorreo(request.correo)){
+        if(usuarioRepository.existsByCorreoAndActivoTrue(request.correo)){
             throw BadRequestException("El correo ya está registrado")
         }
 
-        if(usuarioRepository.existsByIdentificacion(request.identificacion)){
+        if(usuarioRepository.existsByIdentificacionAndActivoTrue(request.identificacion)){
             throw BadRequestException("La identificación ya está registrada.")
         }
 
@@ -89,7 +89,7 @@ class AuthServiceImpl(
     @Transactional
     override fun forgotPassword(request: ForgotPasswordRequest) {
 
-        val usuario = usuarioRepository.findByCorreo(request.correo)
+        val usuario = usuarioRepository.findByCorreoAndActivoTrue(request.correo)
             ?: throw BadRequestException("No existe un usuario registrado con ese correo.")
 
         passwordResetTokenRepository.deleteByUsuario(usuario)
