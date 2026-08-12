@@ -124,15 +124,10 @@ class SolicitudConsultaServiceImpl(
 
     override fun asignarRecursoFisico(id: Long, request: AsignarRecursoFisicoRequest): SolicitudConsultaResponse {
         val solicitud = obtenerSolicitud(id)
-        if(
-            solicitud.estado == EstadoSolicitud.RECHAZADA ||
-            solicitud.estado == EstadoSolicitud.CANCELADA ||
-            solicitud.estado == EstadoSolicitud.CERRADA   ||
-            solicitud.estado == EstadoSolicitud.RESUELTA){
-            throw BadRequestException(
-                "No se puede asignar un recurso físico a esta consulta."
-            )
+        if(!validarEstado(solicitud)){
+            throw BadRequestException("No se puede asignar un recurso físico a esta consulta.")
         }
+
         solicitud.apply {
             recursoFisico = obtenerRecursoFisico(request.recursoFisicoId)
         }
@@ -164,11 +159,7 @@ class SolicitudConsultaServiceImpl(
 
     override fun reasignarDocente(id: Long, request: ReasignarDocenteRequest): SolicitudConsultaResponse {
         val solicitud = obtenerSolicitud(id)
-        if(
-            solicitud.estado == EstadoSolicitud.RECHAZADA ||
-            solicitud.estado == EstadoSolicitud.CANCELADA ||
-            solicitud.estado == EstadoSolicitud.CERRADA   ||
-            solicitud.estado == EstadoSolicitud.RESUELTA){
+        if(!validarEstado(solicitud)){
             throw BadRequestException("No se puede reasignar esta consulta.")
         }
         solicitud.apply {
@@ -234,6 +225,12 @@ class SolicitudConsultaServiceImpl(
                 "El usuario no pertenece a esta solicitud."
             )
         }
+    }
+
+    private fun validarEstado(consulta: SolicitudConsulta): Boolean{
+        return consulta.estado == EstadoSolicitud.ACEPTADA ||
+                consulta.estado == EstadoSolicitud.EN_PROCESO ||
+                consulta.estado == EstadoSolicitud.PENDIENTE
     }
 
     private fun validarMotivo(estado: EstadoSolicitud, motivo: String?) {

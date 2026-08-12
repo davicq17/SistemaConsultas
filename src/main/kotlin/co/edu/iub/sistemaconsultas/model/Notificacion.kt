@@ -34,5 +34,8 @@ class Notificacion (
     var mensaje: String = "",
 
     @Column(nullable = false)
+    var leida: Boolean,
+
+    @Column(nullable = false)
     var fechaCreacion: LocalDateTime = LocalDateTime.now()
 )
