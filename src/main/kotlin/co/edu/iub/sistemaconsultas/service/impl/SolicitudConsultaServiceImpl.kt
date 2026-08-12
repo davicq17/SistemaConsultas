@@ -77,6 +77,15 @@ class SolicitudConsultaServiceImpl(
         return solicitudRepository.findAll().map { it.toResponse() }
     }
 
+    @Transactional(readOnly = true)
+    override fun listarMisSolicitudes(): List<SolicitudConsultaResponse> {
+        val usuario = obtenerUsuarioAuth()
+        return solicitudRepository.findAllByEstudianteOrDocenteOrderByFechaCreacionDesc(
+            usuario,
+            usuario
+        ).map { it.toResponse() }
+    }
+
     override fun actualizar(id: Long, request: UpdateSolicitudConsultaRequest): SolicitudConsultaResponse {
 
         if(request.fechaConsulta.isBefore(LocalDate.now())){
