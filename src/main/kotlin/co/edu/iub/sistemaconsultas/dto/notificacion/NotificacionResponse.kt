@@ -23,5 +23,7 @@ data class NotificacionResponse(
 
     val mensaje: String,
 
+    val leida: Boolean,
+
     val fechaCreacion: LocalDateTime,
 )

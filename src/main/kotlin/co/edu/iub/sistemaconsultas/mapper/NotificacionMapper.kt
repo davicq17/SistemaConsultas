@@ -15,6 +15,7 @@ fun Notificacion.toResponse(): NotificacionResponse {
         tipo = tipo,
         titulo = titulo,
         mensaje = mensaje,
+        leida = leida,
         fechaCreacion = fechaCreacion
     )
 }

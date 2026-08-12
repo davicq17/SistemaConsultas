@@ -55,5 +55,8 @@ class SolicitudConsulta(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "recurso_fisico_id")
-    var recursoFisico: RecursoFisico? = null
+    var recursoFisico: RecursoFisico? = null,
+
+    @OneToMany(mappedBy = "solicitudConsulta")
+    var comentarios: MutableList<Comentario> = mutableListOf()
 )

@@ -5,6 +5,7 @@ import co.edu.iub.sistemaconsultas.dto.notificacion.RegistroNotificacionRequest
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.mapper.toResponse
+import co.edu.iub.sistemaconsultas.model.Comentario
 import co.edu.iub.sistemaconsultas.model.Notificacion
 import co.edu.iub.sistemaconsultas.model.SolicitudConsulta
 import co.edu.iub.sistemaconsultas.model.Usuario
@@ -40,6 +41,7 @@ class NotificacionServiceImpl(
             solicitudConsulta = consulta,
             tipo = request.tipo,
             titulo = request.titulo,
+            leida = false,
             mensaje = request.mensaje
         )
 
@@ -61,7 +63,7 @@ class NotificacionServiceImpl(
             solicitud.id!!,
             "Nueva solicitud de consulta",
             """
-                El estudiante ${solicitud.estudiante.nombre} ha creado una nueva solicitud de consulta con el número ${solicitud.numeroConsulta}.
+                El estudiante ${solicitud.estudiante.nombre} ${solicitud.estudiante.apellido} ha creado una nueva solicitud de consulta con el número ${solicitud.numeroConsulta}.
                 Revisa los detalles de la solicitud para gestionar su atención.
                 """.trimIndent()
         )
@@ -117,6 +119,51 @@ class NotificacionServiceImpl(
                 Revisa los detalles de la solicitud para gestionar su atención.
                 """.trimIndent()
         )
+    }
+
+    override fun notificarComentario(comentario: Comentario, destinatario: Usuario) {
+        armarNotificacion(
+            destinatario.id!!,
+            TipoNotificacion.COMENTARIO,
+            comentario.solicitudConsulta.id!!,
+            "Nuevo comentario en la consulta ${comentario.solicitudConsulta.numeroConsulta}",
+            """
+                ${comentario.autor.nombre} ${comentario.autor.apellido} 
+                ha agregado un nuevo comentario: ${comentario.contenido}
+                """.trimIndent()
+        )
+    }
+
+    override fun listarNotificaciones(): List<NotificacionResponse> {
+        val destinatario = obtenerUsuarioAuth()
+        return  notificacionRepository.findAllByDestinatarioAndTipoOrderByFechaCreacionDesc(
+            destinatario,
+            TipoNotificacion.COMENTARIO
+        )
+            .map { it.toResponse() }
+    }
+
+    override fun contarNotificacionesNoLeidas(): Long {
+        val destinatario = obtenerUsuarioAuth()
+        return  notificacionRepository.countByDestinatarioAndTipoAndLeidaFalse(
+            destinatario,
+            TipoNotificacion.COMENTARIO)
+    }
+
+    override fun marcarComoLeida(id: Long): NotificacionResponse {
+        val destinatario = obtenerUsuarioAuth()
+        val notificacion = notificacionRepository.findById(id)
+            .orElseThrow{ ResourceNotFoundException("Notificación no encontrada.") }
+
+        if (destinatario.id != notificacion.destinatario.id){
+            throw BadRequestException("Esta notificación no le pertenece.")
+        }
+
+        notificacion.leida = true
+
+        val notificacionGuarda = notificacionRepository.save(notificacion)
+
+        return notificacionGuarda.toResponse()
     }
 
      private fun armarNotificacion(
