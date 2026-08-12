@@ -228,8 +228,7 @@ class SolicitudConsultaServiceImpl(
     }
 
     private fun validarEstado(consulta: SolicitudConsulta): Boolean{
-        return consulta.estado == EstadoSolicitud.ACEPTADA ||
-                consulta.estado == EstadoSolicitud.EN_PROCESO ||
+        return consulta.estado == EstadoSolicitud.EN_PROCESO ||
                 consulta.estado == EstadoSolicitud.PENDIENTE
     }
 
@@ -256,29 +255,19 @@ class SolicitudConsultaServiceImpl(
         val estadosPermitidos = when (estadoActual){
 
             EstadoSolicitud.PENDIENTE -> setOf(
-                EstadoSolicitud.ACEPTADA,
-                EstadoSolicitud.RECHAZADA,
-                EstadoSolicitud.CANCELADA
-            )
-
-            EstadoSolicitud.ACEPTADA -> setOf(
                 EstadoSolicitud.EN_PROCESO,
+                EstadoSolicitud.RECHAZADA,
                 EstadoSolicitud.CANCELADA
             )
 
             EstadoSolicitud.EN_PROCESO -> setOf(
                 EstadoSolicitud.RESUELTA,
-                EstadoSolicitud.CERRADA,
                 EstadoSolicitud.CANCELADA
-            )
-
-            EstadoSolicitud.RESUELTA -> setOf(
-                EstadoSolicitud.CERRADA
             )
 
             EstadoSolicitud.RECHAZADA,
             EstadoSolicitud.CANCELADA,
-            EstadoSolicitud.CERRADA -> emptySet()
+            EstadoSolicitud.RESUELTA -> emptySet()
         }
 
         if(nuevoEstado !in estadosPermitidos){

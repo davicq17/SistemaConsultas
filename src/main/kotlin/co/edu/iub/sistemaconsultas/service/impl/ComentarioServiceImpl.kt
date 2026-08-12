@@ -136,7 +136,6 @@ class ComentarioServiceImpl(
     }
 
     private fun puedeComentar(consulta: SolicitudConsulta): Boolean{
-        return consulta.estado == EstadoSolicitud.ACEPTADA ||
-                consulta.estado == EstadoSolicitud.EN_PROCESO
+        return consulta.estado == EstadoSolicitud.EN_PROCESO
     }
 }
