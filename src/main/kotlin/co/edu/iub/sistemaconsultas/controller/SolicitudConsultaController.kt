@@ -57,6 +57,21 @@ class SolicitudConsultaController(
     }
 
     @Operation(
+        summary = "Listar mis solicitudes de consultas",
+        description = "Obtiene todas las solicitudes de consultas relacionadas con el usuario autenticado."
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Consulta realizada correctamente."),
+            ApiResponse(responseCode = "401", description = "No autenticado.")
+        ]
+    )
+    @GetMapping("/mis-solicitudes")
+    fun listarMisSolicitudes():List<SolicitudConsultaResponse> {
+        return solicitudConsultaService.listarMisSolicitudes()
+    }
+
+    @Operation(
         summary = "Buscar solicitud de consulta por ID",
         description = "Obtiene la información de una solicitud de consulta en especifico."
     )
@@ -156,6 +171,4 @@ class SolicitudConsultaController(
     ): SolicitudConsultaResponse {
         return solicitudConsultaService.asignarRecursoFisico(id, request)
     }
-
-
 }
