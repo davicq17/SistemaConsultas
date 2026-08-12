@@ -218,10 +218,10 @@ class NotificacionServiceImpl(
     ): Pair<String, String> {
         return when (solicitud.estado) {
 
-            EstadoSolicitud.ACEPTADA -> Pair(
+            EstadoSolicitud.EN_PROCESO -> Pair(
                 "Solicitud aceptada",
                 """
-                    Tu solicitud de consulta ${solicitud.numeroConsulta} ha sido aceptada. 
+                    Tu solicitud de consulta ${solicitud.numeroConsulta} ha sido aceptada y se encuentra actualmente en proceso de atención.
                     La consulta está programada para el ${solicitud.fechaConsulta} a las ${solicitud.horaConsulta}.
                     """.trimIndent()
             )
@@ -242,19 +242,9 @@ class NotificacionServiceImpl(
                     """.trimIndent()
             )
 
-            EstadoSolicitud.EN_PROCESO -> Pair(
-                "Consulta en proceso",
-                "La consulta ${solicitud.numeroConsulta} se encuentra actualmente en proceso de atención."
-            )
-
             EstadoSolicitud.RESUELTA -> Pair(
                 "Consulta resuelta",
                 "La consulta ${solicitud.numeroConsulta} ha sido marcada como resuelta."
-            )
-
-            EstadoSolicitud.CERRADA -> Pair(
-                "Consulta cerrada",
-                "La consulta ${solicitud.numeroConsulta} ha sido cerrada."
             )
 
             else -> throw BadRequestException(
