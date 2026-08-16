@@ -1,7 +1,7 @@
 package co.edu.iub.sistemaconsultas.service.impl
 
 import co.edu.iub.sistemaconsultas.dto.notificacion.NotificacionResponse
-import co.edu.iub.sistemaconsultas.dto.notificacion.RegistroNotificacionRequest
+import co.edu.iub.sistemaconsultas.dto.notificacion.RegistroNotificacion
 import co.edu.iub.sistemaconsultas.exception.BadRequestException
 import co.edu.iub.sistemaconsultas.exception.ResourceNotFoundException
 import co.edu.iub.sistemaconsultas.mapper.toResponse
@@ -30,7 +30,7 @@ class NotificacionServiceImpl(
 ):NotificacionService {
 
     private fun registrarNotificacion(
-        request: RegistroNotificacionRequest
+        request: RegistroNotificacion
     ): NotificacionResponse {
         val remitente = obtenerUsuario(request.remitenteId)
         val destinatario = obtenerUsuario(request.destinatarioId)
@@ -102,7 +102,7 @@ class NotificacionServiceImpl(
             solicitud.id!!,
             "Recurso físico asignado",
             """
-                Se ha asignado el recurso ${solicitud.recursoFisico!!.tipo} ${solicitud.recursoFisico!!.nombre} para la consulta ${solicitud.numeroConsulta}.
+                Se ha asignado el recurso ${solicitud.recursoFisico!!.nombre} para la consulta ${solicitud.numeroConsulta}.
                 Consulta los detalles de tu solicitud para conocer la información actualizada.
                 """.trimIndent()
         )
@@ -175,7 +175,7 @@ class NotificacionServiceImpl(
     ){
         val remitente = obtenerUsuarioAuth()
         registrarNotificacion(
-            RegistroNotificacionRequest(
+            RegistroNotificacion(
                 remitenteId = remitente.id!!,
                 destinatarioId = destinatarioId,
                 solicitudConsultaId = solicitudId,

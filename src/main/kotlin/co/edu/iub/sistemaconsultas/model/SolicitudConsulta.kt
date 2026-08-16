@@ -58,5 +58,8 @@ class SolicitudConsulta(
     var recursoFisico: RecursoFisico? = null,
 
     @OneToMany(mappedBy = "solicitudConsulta")
-    var comentarios: MutableList<Comentario> = mutableListOf()
+    var comentarios: MutableList<Comentario> = mutableListOf(),
+
+    @OneToMany(mappedBy = "solicitud")
+    var eventos: MutableList<EventoSolicitud> = mutableListOf()
 )

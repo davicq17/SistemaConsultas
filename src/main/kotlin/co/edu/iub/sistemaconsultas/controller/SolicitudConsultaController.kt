@@ -1,6 +1,8 @@
 package co.edu.iub.sistemaconsultas.controller
 
+import co.edu.iub.sistemaconsultas.dto.eventoSolicitud.EventoSolicitudResponse
 import co.edu.iub.sistemaconsultas.dto.solicitud.*
+import co.edu.iub.sistemaconsultas.service.EventoSolicitudService
 import co.edu.iub.sistemaconsultas.service.SolicitudConsultaService
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/solicitudes-consultas")
 class SolicitudConsultaController(
-    private val solicitudConsultaService: SolicitudConsultaService
+    private val solicitudConsultaService: SolicitudConsultaService,
+    private val eventoService: EventoSolicitudService
 ) {
 
     @Operation(
@@ -170,5 +173,22 @@ class SolicitudConsultaController(
         request: AsignarRecursoFisicoRequest
     ): SolicitudConsultaResponse {
         return solicitudConsultaService.asignarRecursoFisico(id, request)
+    }
+
+    @Operation(
+        summary = "Historial de actividad en la consulta",
+        description = "Obtiene el historial de actividades de la consulta especificada."
+    )
+    @ApiResponses(
+        value = [
+            ApiResponse(responseCode = "200", description = "Consulta realizada correctamente."),
+            ApiResponse(responseCode = "401", description = "No autenticado.")
+        ]
+    )
+    @GetMapping("/{id}/historial")
+    fun listarEventosPorSolicitud(
+        @PathVariable("id") id: Long
+    ):List<EventoSolicitudResponse> {
+        return eventoService.listarEventos(id)
     }
 }
