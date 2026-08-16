@@ -4,7 +4,7 @@ import co.edu.iub.sistemaconsultas.model.enums.TipoNotificacion
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
 
-data class RegistroNotificacionRequest (
+data class RegistroNotificacion (
 
     @field:NotNull(message = "La notificación debe tener un remitente.")
     val remitenteId: Long,

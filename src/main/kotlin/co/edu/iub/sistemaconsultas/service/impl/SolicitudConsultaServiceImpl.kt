@@ -14,6 +14,7 @@ import co.edu.iub.sistemaconsultas.repository.ModuloRepository
 import co.edu.iub.sistemaconsultas.repository.RecursoFisicoRepository
 import co.edu.iub.sistemaconsultas.repository.SolicitudConsultaRepository
 import co.edu.iub.sistemaconsultas.repository.UsuarioRepository
+import co.edu.iub.sistemaconsultas.service.EventoSolicitudService
 import co.edu.iub.sistemaconsultas.service.NotificacionService
 import co.edu.iub.sistemaconsultas.service.SolicitudConsultaService
 import co.edu.iub.sistemaconsultas.util.NumeroConsultaGenerator
@@ -30,7 +31,8 @@ class SolicitudConsultaServiceImpl(
     private val usuarioRepository: UsuarioRepository,
     private val moduloRepository: ModuloRepository,
     private val recursoFisicoRepository: RecursoFisicoRepository,
-    private val notificacionService: NotificacionService
+    private val notificacionService: NotificacionService,
+    private val eventoService: EventoSolicitudService
 ) : SolicitudConsultaService {
 
     override fun registrar(request: RegistroSolicitudConsultaRequest): SolicitudConsultaResponse {
@@ -63,6 +65,7 @@ class SolicitudConsultaServiceImpl(
         val solicitudGuardada = solicitudRepository.save(solicitudConsulta)
 
         notificacionService.notificarNuevaSolicitud(solicitudGuardada)
+        eventoService.nuevaSolicitud(solicitudGuardada,estudiante)
 
         return solicitudGuardada.toResponse()
     }
@@ -126,6 +129,7 @@ class SolicitudConsultaServiceImpl(
             horaAnterior != solicitudGuardada.horaConsulta
             ){
             notificacionService.notificarCambioAgenda(solicitudGuardada, destinatario, request.motivo!!)
+            eventoService.cambioAgenda(solicitudGuardada,usuarioActual)
         }
 
         return solicitudGuardada.toResponse()
@@ -133,6 +137,7 @@ class SolicitudConsultaServiceImpl(
 
     override fun asignarRecursoFisico(id: Long, request: AsignarRecursoFisicoRequest): SolicitudConsultaResponse {
         val solicitud = obtenerSolicitud(id)
+        val usuarioActual = obtenerUsuarioAuth()
         if(!validarEstado(solicitud)){
             throw BadRequestException("No se puede asignar un recurso físico a esta consulta.")
         }
@@ -144,6 +149,7 @@ class SolicitudConsultaServiceImpl(
         val solicitudGuardada = solicitudRepository.save(solicitud)
 
         notificacionService.notificarAsignacionRecurso(solicitudGuardada, solicitudGuardada.estudiante)
+        eventoService.asignacionRecurso(solicitudGuardada, usuarioActual)
 
         return solicitudGuardada.toResponse()
     }
@@ -162,12 +168,14 @@ class SolicitudConsultaServiceImpl(
         val destinatario = obtenerDestinatario(solicitudGuardada,usuarioActual)
 
         notificacionService.notificarCambioEstado(solicitudGuardada,destinatario, request.motivo)
+        eventoService.cambioEstado(solicitudGuardada,usuarioActual)
 
         return solicitudGuardada.toResponse()
     }
 
     override fun reasignarDocente(id: Long, request: ReasignarDocenteRequest): SolicitudConsultaResponse {
         val solicitud = obtenerSolicitud(id)
+        val usuarioActual = obtenerUsuarioAuth()
         if(!validarEstado(solicitud)){
             throw BadRequestException("No se puede reasignar esta consulta.")
         }
@@ -178,6 +186,7 @@ class SolicitudConsultaServiceImpl(
         val solicitudGuardada = solicitudRepository.save(solicitud)
 
         notificacionService.notificarReasignacion(solicitudGuardada, solicitudGuardada.docente)
+        eventoService.reasignacion(solicitudGuardada,usuarioActual)
 
         return solicitudGuardada.toResponse()
     }

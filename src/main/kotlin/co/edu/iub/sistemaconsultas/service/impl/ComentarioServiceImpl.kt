@@ -14,6 +14,7 @@ import co.edu.iub.sistemaconsultas.repository.ComentarioRepository
 import co.edu.iub.sistemaconsultas.repository.SolicitudConsultaRepository
 import co.edu.iub.sistemaconsultas.repository.UsuarioRepository
 import co.edu.iub.sistemaconsultas.service.ComentarioService
+import co.edu.iub.sistemaconsultas.service.EventoSolicitudService
 import co.edu.iub.sistemaconsultas.service.NotificacionService
 import co.edu.iub.sistemaconsultas.util.SecurityUtils
 import org.springframework.stereotype.Service
@@ -26,7 +27,8 @@ class ComentarioServiceImpl(
     private val comentarioRepository: ComentarioRepository,
     private val usuarioRepository: UsuarioRepository,
     private val solicitudRepository: SolicitudConsultaRepository,
-    private val notificacionService: NotificacionService
+    private val notificacionService: NotificacionService,
+    private val eventoService: EventoSolicitudService
 ): ComentarioService {
 
     override fun registrarComentario(request: RegistroComentarioRequest): ComentarioResponse {
@@ -49,6 +51,7 @@ class ComentarioServiceImpl(
         val destinatario = obtenerDestinatario(consulta, autor)
 
         notificacionService.notificarComentario(comentarioGuardado, destinatario)
+        eventoService.nuevoComentario(consulta,autor)
         return comentarioGuardado.toResponse()
     }
 
