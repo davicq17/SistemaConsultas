@@ -1,0 +1,317 @@
+/* ===== Reset & Base ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9fafc;
+    color: #333;
+}
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    color: #1e3c72;
+    padding: 12px 24px;
+    border-bottom: 2px solid #eee;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    height: 50px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* ===== Nombre del Usuario / Administrador ===== */
+.usuario {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e3c72;
+    background: #f1c40f;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-left: auto; /* Alinea correctamente en flexbox sin solapamientos */
+}
+
+.cerrar-sesion {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cerrar-sesion:hover {
+    background: #c0392b;
+}
+
+/* ===== Menú de Navegación ===== */
+.menu {
+    display: flex;
+    justify-content: center;
+    background: #1e3c72;
+    border-bottom: 3px solid #f1c40f;
+    flex-wrap: wrap;
+}
+
+.tablink {
+    background: transparent;
+    color: white;
+    padding: 14px 22px;
+    cursor: pointer;
+    border: none;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.tablink:hover {
+    background: #274a91;
+}
+
+.tablink.active {
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+}
+
+/* ===== Contenido de Pestañas ===== */
+.tabcontent {
+    display: none;
+    padding: 30px;
+    animation: fadeEffect 0.4s ease-in-out;
+}
+
+.tabcontent.active {
+    display: block;
+}
+
+@keyframes fadeEffect {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+    color: #1e3c72;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===== Tablas ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+table th, table td {
+    padding: 12px 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+table th {
+    background: #1e3c72;
+    color: white;
+    font-weight: 600;
+}
+
+table tr:nth-child(even) {
+    background: #f4f6f9;
+}
+
+table tr:hover {
+    background: #eef4ff;
+}
+
+/* ===== Botones de Acción dentro de Tablas ===== */
+.celda-acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.celda-acciones button {
+    background-color: #1e3c72;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin: 2px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+    width: 110px;
+    height: 36px;
+}
+
+.celda-acciones button:hover {
+    background-color: #274a91;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+/* ===== Filtros ===== */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    background: #ffffff;
+    padding: 16px 18px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.filtros label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+.filtros select,
+.filtros input,
+.filtros button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    min-width: 150px;
+}
+
+.filtros button {
+    background: #1e3c72;
+    color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filtros button:hover {
+    background: #274a91;
+}
+
+/* ===== Formularios de Registro ===== */
+.form-registro {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: white;
+    padding: 24px;
+    border-radius: 10px;
+    max-width: 480px;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.form-registro label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e3c72;
+}
+
+.form-registro input,
+.form-registro select {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    width: 100%;
+}
+
+.form-registro input:focus,
+.form-registro select:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 6px rgba(30,60,114,0.2);
+    outline: none;
+}
+
+.form-registro button {
+    padding: 12px;
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    margin-top: 10px;
+}
+
+.form-registro button:hover {
+    background: #d4ac0d;
+}
+
+/* ===== Adaptación Responsive ===== */
+@media (max-width: 1024px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .usuario {
+        margin: 10px auto;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    .tablink {
+        width: 100%;
+        text-align: center;
+    }
+
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 600px) {
+    .form-registro {
+        width: 100%;
+        padding: 16px;
+    }
+
+    .filtros select,
+    .filtros input,
+    .filtros button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 12px;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .cerrar-sesion {
+        width: 100%;
+    }
+}

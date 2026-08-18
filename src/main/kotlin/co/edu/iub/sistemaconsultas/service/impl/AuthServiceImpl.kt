@@ -42,7 +42,6 @@ class AuthServiceImpl(
         authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(
                 request.correo,
-
                 request.password
             )
         )
@@ -50,9 +49,18 @@ class AuthServiceImpl(
         val userDetails = customUserDetailsService
             .loadUserByUsername(request.correo)
 
+        val usuario = usuarioRepository.findByCorreo(request.correo)
+            ?: throw ResourceNotFoundException("Usuario no encontrado")
+
         val token = jwtService.generarToken(userDetails)
 
-        return LoginResponse(token)
+        return LoginResponse(
+            token = token,
+            id_usuario = usuario.id ?: 0L,
+            correo = usuario.correo,
+            nombre = "${usuario.nombre} ${usuario.apellido}",
+            rol = usuario.rol
+        )
     }
 
     override fun registrar(request: RegistroUsuarioRequest) {
