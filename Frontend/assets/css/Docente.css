@@ -1,0 +1,522 @@
+/* ===== Reset ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9fafc;
+    color: #333;
+}
+/* =========================================
+   ✍️ FIRMAS DIGITALES + REPETICIÓN EN PÁGINAS
+========================================= */
+
+.firma-imagen {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 5px auto;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    width: 440px;
+}
+
+canvas {
+    border: 1px solid #000;
+    cursor: crosshair;
+    background: #fff;
+}
+
+/* =========================================
+   🖨️ REPETIR ELEMENTOS EN TODAS LAS HOJAS
+========================================= */
+@media print {
+    @page { size: A4 landscape; margin: 8mm 5mm; }
+
+    html, body {
+        width: 297mm;
+        height: 210mm;
+        background: #fff;
+        color: #000;
+    }
+
+    textarea, input { border: none; background: #fff; }
+    .container { border: none; padding-left: 3mm; }
+
+    /* Mostrar firmas y observaciones en todas las páginas */
+    tfoot {
+        display: table-footer-group;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+}
+
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    color: #1e3c72;
+    padding: 12px 24px;
+    border-bottom: 2px solid #eee;
+}
+.logo {
+    height: 55px;
+}
+.cerrar-sesion {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.cerrar-sesion:hover {
+    background: #c0392b;
+}
+
+/* ===== Menú ===== */
+.menu {
+    display: flex;
+    justify-content: center;
+    background: #1e3c72;
+    border-bottom: 3px solid #f1c40f;
+    flex-wrap: wrap;
+}
+.tablink {
+    background: transparent;
+    color: #fff;
+    padding: 14px 22px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.tablink:hover {
+    background: #274a91;
+}
+.tablink.active {
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+}
+
+/* ===== Contenido ===== */
+.tabcontent {
+    display: none;
+    padding: 30px;
+    animation: fadeEffect 0.5s;
+}
+.tabcontent.active {
+    display: block;
+}
+@keyframes fadeEffect {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+h1, h2 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+/* ===== Tablas ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
+th, td {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 14px;
+}
+th {
+    background: #1e3c72;
+    color: #fff;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background: #f4f6f9;
+}
+tr:hover {
+    background: #eef4ff;
+}
+
+/* ===== Filtros ===== */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    background: #fff;
+    padding: 16px 18px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.filtros label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2c3e50;
+}
+.filtros select,
+.filtros input,
+.filtros button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+.filtros button {
+    background: #1e3c72;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+.filtros button:hover {
+    background: #274a91;
+}
+
+/* ===== Formularios ===== */
+#registroForm,
+#consultaForm {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+#registroForm label,
+#consultaForm label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e3c72;
+}
+#registroForm input,
+#registroForm select,
+#consultaForm input,
+#consultaForm select {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+#registroForm input:focus,
+#registroForm select:focus,
+#consultaForm input:focus,
+#consultaForm select:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 6px rgba(30,60,114,0.2);
+    outline: none;
+}
+#registroForm button,
+#consultaForm button {
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+#registroForm button:hover,
+#consultaForm button:hover {
+    background: #d4ac0d;
+}
+
+/* ===== Botones acción ===== */
+.btn-editar,
+.btn-escanear {
+    display: inline-block;
+    min-width: 110px;
+    padding: 10px 14px;
+    margin: 2px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+.btn-editar { background: #3498db; color: #fff; }
+.btn-editar:hover { background: #2980b9; }
+.btn-escanear { background: #2ecc71; color: #fff; }
+.btn-escanear:hover { background: #27ae60; }
+
+/* ===== Lector QR ===== */
+#lectorQR {
+    max-width: 420px;
+    margin: 20px auto;
+    border: 2px dashed #1e3c72;
+    border-radius: 10px;
+    background: #fff;
+    padding: 16px;
+    text-align: center;
+}
+#resultadoQR {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+/* ===== Modal ===== */
+#modalEditar {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+#modalEditar .modal-content {
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+#modalEditar h3 { margin-bottom: 16px; color: #1e3c72; }
+#modalEditar input {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+#modalEditar button {
+    margin: 6px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+#modalEditar .guardar { background: #27ae60; color: #fff; }
+#modalEditar .guardar:hover { background: #1e874b; }
+#modalEditar .cancelar { background: #e74c3c; color: #fff; }
+#modalEditar .cancelar:hover { background: #c0392b; }
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+    header { flex-direction: column; gap: 10px; text-align: center; }
+    .tablink { flex: 1 1 45%; margin: 4px; font-size: 14px; }
+    table th, td { font-size: 13px; padding: 10px; }
+    #registroForm, #consultaForm { max-width: 90%; }
+}
+@media (max-width: 600px) {
+    .logo { height: 45px; }
+    .cerrar-sesion { width: 100%; font-size: 13px; padding: 8px; }
+    .menu { flex-direction: column; }
+    .tablink { width: 100%; padding: 12px; font-size: 14px; }
+    .filtros { flex-direction: column; align-items: stretch; }
+    .filtros select, .filtros input, .filtros button { width: 100%; }
+    table { display: block; overflow-x: auto; }
+    .btn-editar, .btn-escanear { width: 100%; margin: 4px 0; }
+    #modalEditar .modal-content { width: 95%; padding: 16px; }
+}
+
+
+/* ==== Botones de acción en la tabla ==== */
+.celda-acciones button {
+    background-color: #1e3c72;   /* Azul base */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    margin: 3px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    text-align: center;
+    width: 110px;  /* 🔹 mismo ancho fijo */
+    height: 36px;  /* 🔹 misma altura */
+}
+
+/* Hover → Amarillo */
+.celda-acciones button:hover {
+    background-color: #FFD700;  /* Amarillo */
+    color: #333;                /* Texto oscuro para contraste */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Active (clic) */
+.celda-acciones button:active {
+    transform: scale(0.95);
+}
+
+/* ===== Nombre del Docente ===== */
+.nombre-docente {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e3c72;
+    margin-left: 20%;
+    background: #f1c40f;
+    padding: 8px 14px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* En pantallas pequeñas */
+@media (max-width: 768px) {
+    .nombre-docente {
+        margin: 8px 0;
+        font-size: 14px;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.usuario {
+    font-size: 16px;
+    margin-left: 45%;
+    font-weight: 600;
+    color: #1e3c72;
+    background-color: #f1c40f;
+    padding: 8px 16px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ===== Modal Editar Consulta ===== */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 6px;
+    font-weight: bold;
+    color: #1e3c72;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btn-guardar {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background: #27ae60;
+    color: #fff;
+}
+
+.btn-guardar:hover {
+    background: #1e874b;
+}
+
+.btn-cancelar {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    background: #e74c3c;
+    color: #fff;
+}
+
+.btn-cancelar:hover {
+    background: #c0392b;
+}
+
+/* 🎨 BOTONES AZULES */
+button {
+    background-color: #1e3c72; /* Azul principal */
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 2px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 🌟 Efecto al pasar el mouse */
+button:hover {
+    background-color: #1e3c72;
+    transform: scale(1.05);
+}
+
+/* ✋ Efecto al presionar */
+button:active {
+    background-color: #1e3c72;
+    transform: scale(0.98);
+}
+
+/* 🔒 Estado deshabilitado */
+button:disabled {
+    background-color: #1e3c72;
+    cursor: not-allowed;
+}
+
+/* 🧩 Ajuste especial para las columnas de acciones */
+#tablaSolicitudes button:first-child {
+    margin-right: 4px;
+}

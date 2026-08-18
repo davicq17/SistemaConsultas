@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Docentes</title>
+    <link rel="stylesheet" href="assets/css/Docente.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+</head>
+<body>
+<!-- ==========================
+     ENCABEZADO PRINCIPAL
+=========================== -->
+<header>
+    <img src="assets/img/logo.png" alt="Logo Universidad" class="logo">
+    <div class="usuario" id="nombreUsuarioHeader"></div>
+    <button class="cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
+</header>
+
+<!-- ==========================
+      MENÚ PRINCIPAL
+=========================== -->
+<nav class="menu">
+    <button class="tablink active" onclick="openTab(event, 'consultas')">Listado de Consultas</button>
+    <button class="tablink" onclick="openTab(event, 'registroConsultas')">Registro de Consultas</button>
+    <button class="tablink" onclick="openTab(event, 'Proximamente')">Próximamente..</button>
+</nav>
+
+<!-- ==========================
+      LISTADO DE CONSULTAS
+=========================== -->
+<section id="consultas" class="tabcontent active">
+    <h1>Listado de consultas de estudiantes</h1>
+
+    <div class="filtros">
+        <label>Fecha:</label>
+        <input type="date" id="buscarFecha">
+
+        <label>Hora:</label>
+        <input type="time" id="buscarHora">
+
+        <label>Mes:</label>
+        <select id="buscarMes">
+            <option value="">Todos</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+
+        <label>ID Estudiante:</label>
+        <input type="number" id="buscarIdEstudiante" placeholder="Ingrese número de documento">
+
+
+        <button onclick="obtenerConsultasFiltradas()">Filtrar</button>
+        <button onclick="exportarExcel()">Exportar a Excel</button>
+        <button onclick="exportarformato()">Exportar a formato</button>
+    </div>
+
+    <div id="lectorQR" style="width:300px; margin:20px auto;"></div>
+
+    <table id="tablasolicitudes">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>N° Consulta</th>
+            <th>Estudiante</th>
+            <th>Módulo</th>
+            <th>Tema / Asunto</th>
+            <th>Fecha y Hora</th>
+            <th>Prioridad</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Los datos se cargarán aquí automáticamente -->
+        </tbody>
+    </table>
+</section>
+
+
+<!-- ==========================
+      REGISTRO DE CONSULTAS
+=========================== -->
+<section id="registroConsultas" class="tabcontent">
+    <h2>Registrar Consulta</h2>
+    <form id="consultaForm">
+        <label for="numeroDocumentoEstudiante">Número de Documento del estudiante:</label>
+        <input type="text" id="numeroDocumentoEstudiante" required>
+
+        <label for="buscar_modulo">Módulo:</label>
+        <select id="buscar_modulo" required>
+            <option value="">Seleccione un módulo</option>
+        </select>
+
+        <label for="temaConsulta">Asunto / Tema:</label>
+        <input type="text" id="temaConsulta" required>
+
+        <label for="descripcionConsulta">Descripción:</label>
+        <textarea id="descripcionConsulta" rows="3" placeholder="Detalle la descripción de la consulta..." required></textarea>
+
+        <label for="fechaConsulta">Fecha:</label>
+        <input type="date" id="fechaConsulta" required>
+
+        <label for="horaConsulta">Hora:</label>
+        <input type="time" id="horaConsulta" required>
+
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" required>
+            <option value="">Seleccione prioridad</option>
+            <option value="BAJA">Baja</option>
+            <option value="MEDIA">Media</option>
+            <option value="ALTA">Alta</option>
+            <option value="URGENTE">Urgente</option>
+        </select>
+
+        <!-- Un solo selector unificado -->
+        <label for="Lugar_consulta">Lugar / Recurso físico (Sede / Bloque / Recurso):</label>
+        <select id="Lugar_consulta" required>
+            <option value="">Cargando recursos físicos...</option>
+        </select>
+
+        <button type="submit">Registrar Consulta</button>
+    </form>
+</section>
+
+<!-- ==========================
+      SECCIÓN PRÓXIMAMENTE
+=========================== -->
+<section id="Proximamente" class="tabcontent">
+    <h2>🚀 Próximamente...</h2>
+    <p>Proximamente Consultas temporales y calendario de disponibilidad</p>
+    <div class="proximamente-icono">🛠️</div>
+</section>
+
+
+
+<!-- ==========================
+      MODAL EDITAR CONSULTA
+=========================== -->
+<div id="modalEditar" class="modal">
+    <div class="modal-content">
+        <h3>Editar Consulta</h3>
+        <form id="formEditarConsulta">
+            <input type="hidden" id="idConsultaEditar">
+
+            <label>Nueva Fecha:</label>
+            <input type="date" id="nuevaFecha" required>
+
+            <label>Nueva Hora:</label>
+            <input type="time" id="nuevaHora" required>
+
+            <label>Nuevo lugar:</label>
+            <input type="text" id="nuevoLugar" required>
+
+            <label>Nuevo Tema:</label>
+            <input type="text" id="nuevoTema" required>
+
+            <div class="modal-actions">
+                <button type="submit" class="btn-guardar">Guardar</button>
+                <button type="button" class="btn-cancelar" onclick="cerrarModalEdicion()">❌ Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- ==========================
+      SCRIPTS
+=========================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="assets/javascript/Docentes.js"></script>
+
+
+</body>
+</html>

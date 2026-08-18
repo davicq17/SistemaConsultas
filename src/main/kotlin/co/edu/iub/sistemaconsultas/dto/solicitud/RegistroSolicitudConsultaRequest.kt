@@ -1,5 +1,6 @@
 package co.edu.iub.sistemaconsultas.dto.solicitud
 
+import co.edu.iub.sistemaconsultas.model.ProgramaAcademico
 import co.edu.iub.sistemaconsultas.model.enums.PrioridadSolicitud
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
@@ -30,4 +31,5 @@ data class RegistroSolicitudConsultaRequest(
 
     @field:NotNull(message = "El ID del módulo es obligatorio.")
     val moduloId: Long
+    
 )
