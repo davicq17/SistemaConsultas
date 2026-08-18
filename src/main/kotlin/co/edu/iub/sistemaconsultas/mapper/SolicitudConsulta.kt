@@ -1,6 +1,7 @@
 package co.edu.iub.sistemaconsultas.mapper
 
 import co.edu.iub.sistemaconsultas.dto.solicitud.SolicitudConsultaResponse
+import co.edu.iub.sistemaconsultas.model.ProgramaAcademico
 import co.edu.iub.sistemaconsultas.model.SolicitudConsulta
 
 fun SolicitudConsulta.toResponse(): SolicitudConsultaResponse {
@@ -32,6 +33,8 @@ fun SolicitudConsulta.toResponse(): SolicitudConsultaResponse {
             nombreCompletoDocente = "${docente.nombre} ${docente.apellido}",
 
             nombreModulo = modulo.nombre,
+
+            nombrePrograma = estudiante.programa?.nombre ?: "Sin programa",
 
             nombreRecursoFisico = recursoFisico?.nombre ?:"Sin asignar"
         )
