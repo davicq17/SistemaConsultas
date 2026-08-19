@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let datos = {
             identificacion: numeroDoc,
             nombre: nombre,
+            apellido:apellido,
             rol: "ESTUDIANTE",
             apellido: apellido,
             correo: correo,

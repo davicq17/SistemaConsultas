@@ -10,7 +10,6 @@ const idDocente = localStorage.getItem("id_usuario");
 const rol = localStorage.getItem("rol");
 const token = localStorage.getItem("token");
 let nombreUsuario = localStorage.getItem("nombre_usuario");
-// Si ya guardamos la identificación antes, la leemos, si no, usamos el id_usuario temporalmente
 let identificacionDocente = localStorage.getItem("identificacion_docente") || idDocente;
 
 const nombreDiv = document.getElementById("nombreUsuarioHeader");
@@ -23,14 +22,12 @@ if (!idDocente || !token) {
     if (nombreUsuario && localStorage.getItem("identificacion_docente")) {
         if (nombreDiv) nombreDiv.textContent = `Hola, ${nombreUsuario}`;
     } else {
-        // Intentamos obtener los datos del usuario usando el endpoint general de usuarios de tu BD
-        fetchAPI(`/usuarios/${idDocente}`) // Cambia a /usuarios o /docentes según tu backend si es necesario
+        fetchAPI(`/usuarios/${idDocente}`)
             .then(res => res.json())
             .then(data => {
                 const usuarioData = data.usuario || data.docente || data;
                 if (usuarioData) {
                     const nombre = usuarioData.nombre || data.nombre;
-                    // Guardamos la identificación real (ej: "12345") en el localStorage
                     const identificacion = usuarioData.identificacion || usuarioData.cedula || usuarioData.documento || "12345";
 
                     localStorage.setItem("nombre_usuario", nombre);
@@ -76,7 +73,6 @@ let todasLasSolicitudes = [];
 // 🚀 INICIALIZACIÓN AL CARGAR LA PÁGINA
 // =============================
 document.addEventListener("DOMContentLoaded", () => {
-    // Usamos la identificación almacenada o el ID por defecto
     const cedulaActual = localStorage.getItem("identificacion_docente") || identificacionDocente || idDocente;
     if (cedulaActual) {
         obtener_solicitudes_docente(cedulaActual);
@@ -160,21 +156,16 @@ function registrarSolicitud() {
 // =============================
 // 📨 OBTENER SOLICITUDES DEL DOCENTE
 // =============================
-// =============================
-// 📨 OBTENER SOLICITUDES DEL DOCENTE
-// =============================
 async function obtener_solicitudes_docente(targetIdDocente) {
     try {
         let identificacionReal = localStorage.getItem("identificacion_docente");
 
-        // Si no la tenemos guardada, la buscamos consultando todos los usuarios
         if (!identificacionReal || identificacionReal === String(targetIdDocente)) {
             const resUsuarios = await fetchAPI('/usuarios');
             if (resUsuarios && resUsuarios.ok) {
                 const dataUsrs = await resUsuarios.json();
                 const listaUsrs = Array.isArray(dataUsrs) ? dataUsrs : (dataUsrs.usuarios || dataUsrs.content || []);
 
-                // Buscamos el usuario cuyo ID coincida con el de sesión (ej: id = 5)
                 const usuarioActual = listaUsrs.find(u => String(u.id || u.idUsuario) === String(targetIdDocente));
 
                 if (usuarioActual) {
@@ -188,22 +179,17 @@ async function obtener_solicitudes_docente(targetIdDocente) {
             identificacionReal = String(targetIdDocente);
         }
 
-        console.log("🔍 ID de Sesión:", targetIdDocente, "-> Cédula real encontrada:", identificacionReal);
-
-        // Traemos todas las solicitudes del sistema
         const res = await fetchAPI(`/solicitudes-consultas`);
         if (!res || !res.ok) return;
 
         const data = await res.json();
         const listaGeneral = Array.isArray(data) ? data : (data.content || data.solicitudes || data.consultas || []);
 
-        // Filtramos comparando la cédula real ("12345") contra la solicitud
         todasLasSolicitudes = listaGeneral.filter(s => {
-            const idEnRegistro = String(s.identificacionDocente || "").trim();
-            return idEnRegistro === identificacionReal;
+            const idEnRegistro = String(s.identificacionDocente || s.docenteId || "").trim();
+            return idEnRegistro === identificacionReal || idEnRegistro === String(targetIdDocente);
         });
 
-        console.log("✅ Solicitudes que pasaron el filtro:", todasLasSolicitudes);
         actualizarTablaSolicitudes(todasLasSolicitudes);
 
     } catch (err) {
@@ -214,10 +200,39 @@ async function obtener_solicitudes_docente(targetIdDocente) {
 }
 
 // =============================
+// 🔍 FILTRO DE CONSULTAS / SOLICITUDES (FUNCIÓN AÑADIDA)
+// =============================
+function obtenerConsultasFiltradas() {
+    const fecha = document.getElementById("buscarFecha")?.value;
+    const hora = document.getElementById("buscarHora")?.value;
+    const mes = document.getElementById("buscarMes")?.value;
+    const idModuloFiltro = document.getElementById("buscar_modulo")?.value || document.getElementById("idModuloSelect")?.value;
+
+    let filtradas = [...todasLasSolicitudes];
+
+    if (fecha) {
+        filtradas = filtradas.filter(c => (c.fechaConsulta || c.fecha) === fecha);
+    }
+    if (hora) {
+        filtradas = filtradas.filter(c => (c.horaConsulta || c.hora) === hora);
+    }
+    if (mes) {
+        filtradas = filtradas.filter(c => {
+            const f = c.fechaConsulta || c.fecha;
+            if (!f) return false;
+            const mesFecha = new Date(f.includes('T') ? f : f + 'T00:00:00').getMonth() + 1;
+            return String(mesFecha) === String(mes);
+        });
+    }
+    if (idModuloFiltro) {
+        filtradas = filtradas.filter(c => String(c.moduloId || c.modulo_id) === String(idModuloFiltro));
+    }
+
+    actualizarTablaSolicitudes(filtradas);
+}
+
+// =============================
 // 📊 TABLA DE SOLICITUDES
-// =============================
-// =============================
-// 📊 TABLA DE SOLICITUDES (Con nombres y datos completos)
 // =============================
 function actualizarTablaSolicitudes(solicitudes) {
     const tbody = document.querySelector("#tablasolicitudes tbody") ||
@@ -231,8 +246,8 @@ function actualizarTablaSolicitudes(solicitudes) {
     if (!solicitudes || solicitudes.length === 0) {
         const fila = tbody.insertRow();
         const celda = fila.insertCell(0);
-        celda.colSpan = 9; // Actualizado al nuevo total de columnas
-        celda.textContent = "✅ No hay solicitudes pendientes.";
+        celda.colSpan = 9;
+        celda.textContent = "✅ No hay solicitudes o consultas registradas.";
         celda.style.textAlign = "center";
         return;
     }
@@ -243,19 +258,19 @@ function actualizarTablaSolicitudes(solicitudes) {
         // 1. ID interno
         fila.insertCell(0).textContent = s.id || "—";
 
-        // 2. Número de consulta (ej: SC-2026-000002)
+        // 2. Número de consulta
         fila.insertCell(1).textContent = s.numeroConsulta || s.numero_consulta || "—";
 
-        // 3. Estudiante (Nombre completo o ID si no viene el objeto)
+        // 3. Estudiante
         fila.insertCell(2).textContent = s.nombreCompletoEstudiante || s.estudianteNombre || `ID: ${s.estudianteId || s.estudiante_id || "—"}`;
 
-        // 4. Módulo (Nombre del módulo o ID)
+        // 4. Módulo
         fila.insertCell(3).textContent = s.nombreModulo || s.moduloNombre || `Módulo ${s.moduloId || s.modulo_id || "—"}`;
 
         // 5. Tema / Asunto
         fila.insertCell(4).textContent = s.asunto || s.tema || "—";
 
-        // 6. Fecha y Hora unidas para optimizar espacio
+        // 6. Fecha y Hora
         const fecha = s.fechaConsulta || s.fecha || "";
         const hora = s.horaConsulta || s.hora || "";
         fila.insertCell(5).textContent = `${fecha} ${hora}`.trim() || "—";

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Estudiantes</title>
+    <link rel="stylesheet" href="assets/css/Estudiante.css">
+    <link rel="icon" type="image/x-icon" href="assets/img/logo.png">
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+</head>
+<body>
+<header>
+    <img src="assets/img/logo.png" alt="Logo Universidad" class="logo">
+    <div class="usuario" id="nombreUsuario"></div>
+    <button class="cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
+</header>
+
+<!-- Menú Navegación -->
+<nav class="menu">
+    <button class="tablink active" onclick="openTab(event, 'consultas')"> Mis Consultas</button>
+    <button class="tablink" onclick="openTab(event, 'solicitar')"> Solicitar Consulta</button>
+    <button class="tablink" onclick="openTab(event, 'horarioDocente')"> Disponibilidad Docente</button>
+    <button class="tablink" onclick="openTab(event, 'solicitudes')"> Solicitudes</button>
+</nav>
+
+<!-- Pestaña 1: Listado de Mis Consultas -->
+<section id="consultas" class="tabcontent active">
+    <h2> Listado de Mis Consultas</h2>
+    <div class="filtros">
+        <input type="date" id="buscarFecha" onchange="obtenerConsultasFiltradas()">
+        <input type="time" id="buscarHora" onchange="obtenerConsultasFiltradas()">
+        <select id="buscarDocente" onchange="obtenerConsultasFiltradas()">
+            <option value="">Todos los docentes</option>
+        </select>
+    </div>
+
+    <table id="tablaconsultas">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Módulo</th>
+            <th>Tema</th>
+            <th>Lugar</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Docente</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Pestaña 2: Solicitar Nueva Consulta -->
+<section id="solicitar" class="tabcontent" style="display:none;">
+    <h2> Solicitar Nueva Consulta</h2>
+    <form id="formSolicitud">
+        <label for="tema">Tema / Asunto:</label>
+        <input type="text" id="tema" required>
+
+        <label for="descripcion">Descripción detallada:</label>
+        <textarea id="descripcion" rows="3" placeholder="Detalla el motivo de la consulta..." required></textarea>
+
+        <label for="fecha">Fecha:</label>
+        <input type="date" id="fecha" required>
+
+        <label for="hora">Hora:</label>
+        <input type="time" id="hora" required>
+
+        <label for="lugar">Lugar / Recurso Físico:</label>
+        <select id="lugar" required></select>
+
+        <label for="docente">Docente:</label>
+        <select id="docente" required></select>
+
+        <label for="modulo">Módulo:</label>
+        <select id="modulo" required></select>
+
+        <button type="submit">📤 Enviar solicitud</button>
+    </form>
+</section>
+
+<!-- Pestaña 3: Disponibilidad del Docente basada en Consultas (CALENDARIO) -->
+<section id="horarioDocente" class="tabcontent" style="display:none;">
+    <h2>📅 Consultar Disponibilidad del Docente</h2>
+
+    <div style="margin-bottom: 20px;">
+        <label for="selectDocenteHorario">Seleccione Docente:</label>
+        <select id="selectDocenteHorario" onchange="obtenerHorarioAtencionDocente()">
+            <option value="">Cargando docentes...</option>
+        </select>
+    </div>
+
+    <h3>🚫 Agenda de Consultas del Docente</h3>
+    <!-- Contenedor del calendario -->
+    <div id="calendarioDocente" style="max-width: 900px; margin: 20px auto; min-height: 500px; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div>
+</section>
+
+<!-- Pestaña 4: Mis Solicitudes de Consultas -->
+<section id="solicitudes" class="tabcontent" style="display:none;">
+    <h2>Solicitudes de Consultas de Estudiantes</h2>
+    <table id="tablaSolicitudes">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Programa</th>
+            <th>Módulo</th>
+            <th>Tema</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Lugar</th>
+            <th>Estado</th>
+            <th>Docente</th>
+            <th>Comentario</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/signature/dist/index.min.js"></script>
+<script src="assets/javascript/Estudiante.js"></script>
+</body>
+</html>
