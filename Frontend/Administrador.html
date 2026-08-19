@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal del Administrador</title>
+    <link rel="stylesheet" href="assets/css/Administrador.css">
+    <link rel="icon" type="image/x-icon" href="Fotos/logo para la pagina.png">
+</head>
+<body>
+
+<header>
+    <img src="assets/img/logo.png" alt="Logo Universidad" class="logo">
+    <div class="usuario" id="nombreUsuarioHeader"></div>
+    <button class="cerrar-sesion" onclick="cerrarSesion()">Cerrar sesión</button>
+</header>
+
+<!-- Menú de Navegación Unificado -->
+<nav class="menu">
+    <button class="tablink active" onclick="openTab(event, 'consultas')">Consultas</button>
+    <button class="tablink" onclick="openTab(event, 'usuarios')">Usuarios</button>
+    <button class="tablink" onclick="openTab(event, 'registro_usuario')">Registrar Usuario</button>
+    <button class="tablink" onclick="openTab(event, 'programas')">Programas</button>
+    <button class="tablink" onclick="openTab(event, 'registro_programa')">Registrar Programa</button>
+    <button class="tablink" onclick="openTab(event, 'registro_modulo')">Registrar Módulo</button>
+    <button class="tablink" onclick="openTab(event, 'modulos')">Módulos</button>
+    <!-- Secciones de Infraestructura -->
+    <button class="tablink" onclick="openTab(event, 'registro_sede')">Registrar Sede</button>
+    <button class="tablink" onclick="openTab(event, 'registro_bloque')">Registrar Bloque</button>
+    <button class="tablink" onclick="openTab(event, 'registro_recurso')">Registrar Recurso</button>
+</nav>
+
+<!-- Consultas -->
+<section id="consultas" class="tabcontent active">
+    <h2>Listado de Consultas</h2>
+    <div class="filtros">
+        <label>Fecha:</label>
+        <input type="date" id="buscarFecha">
+        <label>Hora:</label>
+        <input type="time" id="buscarHora">
+        <label>Mes:</label>
+        <select id="buscarMes">
+            <option value="">Todos</option>
+            <option value="1">Enero</option>
+            <option value="2">Febrero</option>
+            <option value="3">Marzo</option>
+            <option value="4">Abril</option>
+            <option value="5">Mayo</option>
+            <option value="6">Junio</option>
+            <option value="7">Julio</option>
+            <option value="8">Agosto</option>
+            <option value="9">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <label>Docente:</label>
+        <input type="number" id="buscarIdDocente" placeholder="Ingrese número de documento">
+        <label>Estudiante:</label>
+        <input type="number" id="buscarIdEstudiante" placeholder="Ingrese número de documento">
+        <button onclick="obtenerConsultasFiltradas()">Filtrar</button>
+        <button onclick="exportarExcel()">Exportar a Excel</button>
+        <button onclick="exportarformato()">Exportar a formato</button>
+    </div>
+
+    <table id="tablaConsultas">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Docente</th>
+            <th>Estudiante</th>
+            <th>Módulo</th>
+            <th>Tema</th>
+            <th>Programa</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Lugar</th>
+            <th>Firma</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Usuarios (Unificado: Docentes, Estudiantes y Administradores) -->
+<section id="usuarios" class="tabcontent">
+    <h2>Listado General de Usuarios</h2>
+    <div class="filtros">
+        <label>Buscar por Documento:</label>
+        <input type="number" id="documento_usuario" placeholder="Número de documento">
+
+        <label>Filtrar por Rol:</label>
+        <select id="filtroRolUsuario">
+            <option value="">Todos los roles</option>
+            <option value="ADMINISTRADOR">Administrador</option>
+            <option value="DOCENTE">Docente</option>
+            <option value="ESTUDIANTE">Estudiante</option>
+        </select>
+
+        <label>Estado:</label>
+        <select id="filtroEstadoUsuario">
+            <option value="">Todos</option>
+            <option value="true">Activos</option>
+            <option value="false">Inactivos</option>
+        </select>
+
+        <button onclick="obtenerUsuariosFiltrados()">Filtrar</button>
+    </div>
+    <table id="tablaUsuarios">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Completo</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Programa Académico</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Registro Usuario -->
+<section id="registro_usuario" class="tabcontent">
+    <h2>Registrar Usuario</h2>
+    <form id="registroUsuarioForm" class="form-registro">
+        <label>Rol:</label>
+        <select id="rolUsuario" name="rol" required>
+            <option value="">Seleccione un rol</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Docente">Docente</option>
+            <option value="Estudiante">Estudiante</option>
+        </select>
+
+        <label>Número de documento:</label>
+        <input type="text" id="idUsuario" name="idUsuario" required>
+
+        <label>Nombre:</label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" required>
+
+        <label>Apellido:</label>
+        <input type="text" id="apellidoUsuario" name="apellidoUsuario" required>
+
+        <label>Correo:</label>
+        <input type="text" id="correoUsuario" name="correoUsuario" required>
+
+        <label>Programa Académico (solo estudiantes):</label>
+        <select id="programaAcademico" name="" disabled>
+            <option value="">Seleccione un programa</option>
+        </select>
+
+        <label>Contraseña:</label>
+        <input type="password" id="contraUsuario" name="contraUsuario" required>
+
+        <button type="submit">Registrar</button>
+    </form>
+</section>
+
+<!-- Programas -->
+<section id="programas" class="tabcontent">
+    <h2>Listado de Programas</h2>
+    <table id="tablaprogramas">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Registro Programa -->
+<section id="registro_programa" class="tabcontent">
+    <h2>Registrar Programa</h2>
+    <form id="registro_programas" class="form-registro">
+        <label>ID del programa:</label>
+        <input type="text" id="idPrograma" required>
+
+        <label>Nombre del programa:</label>
+        <input type="text" id="nombrePrograma" required>
+
+        <button type="submit">Registrar</button>
+    </form>
+</section>
+
+<!-- Registro Módulo -->
+<section id="registro_modulo" class="tabcontent">
+    <h2>Registrar Módulo</h2>
+    <form id="registroModuloForm" class="form-registro">
+        <label>Código:</label>
+        <input type="text" id="idModulo" required>
+
+        <label>Nombre:</label>
+        <input type="text" id="nombreModulo" required>
+
+        <button type="submit">Registrar</button>
+    </form>
+</section>
+
+<!-- Módulos -->
+<section id="modulos" class="tabcontent">
+    <h2>Listado de Módulos</h2>
+    <table id="tablamodulos">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</section>
+
+<!-- Registro de Sede -->
+<section id="registro_sede" class="tabcontent">
+    <h2>Registrar Sede</h2>
+    <form id="registroSedeForm" class="form-registro">
+        <label>ID de la Sede:</label>
+        <input type="text" id="idSede" required>
+
+        <label>Nombre de la Sede:</label>
+        <input type="text" id="nombreSede" required>
+
+        <label>Ubicación / Dirección:</label>
+        <input type="text" id="ubicacionSede" required>
+
+        <button type="submit">Registrar Sede</button>
+    </form>
+</section>
+
+<!-- Registro de Bloque -->
+<section id="registro_bloque" class="tabcontent">
+    <h2>Registrar Bloque</h2>
+    <form id="registroBloqueForm" class="form-registro">
+        <label for="nombreBloque">Nombre del Bloque:</label>
+        <input type="text" id="nombreBloque" placeholder="Ej. Bloque A, Ingeniería" required>
+
+        <label for="selectSedeBloque">Sede a la que pertenece:</label>
+        <select id="selectSedeBloque" required>
+            <option value="">Seleccione una sede</option>
+            <!-- Las opciones se cargan dinámicamente mediante JS -->
+        </select>
+
+        <button type="submit">Registrar Bloque</button>
+    </form>
+</section>
+
+<!-- Registro de Recurso Físico -->
+<section id="registro_recurso" class="tabcontent">
+    <h2>Registrar Recurso Físico</h2>
+    <form id="registroRecursoForm" class="form-registro">
+        <label for="nombreRecurso">Nombre del Recurso:</label>
+        <input type="text" id="nombreRecurso" placeholder="Ej. Salón 204" required>
+
+        <label for="tipoRecurso">Tipo de Recurso:</label>
+        <select id="tipoRecurso" required>
+            <option value="">Seleccione el tipo</option>
+            <option value="SALON">Salón</option>
+            <option value="AUDITORIO">Auditorio</option>
+            <option value="SALA">Sala</option>
+            <option value="LABORATORIO">Laboratorio</option>
+        </select>
+
+        <label for="selectBloqueRecurso">Bloque al que pertenece:</label>
+        <select id="selectBloqueRecurso" required>
+            <option value="">Seleccione un bloque</option>
+            <!-- Las opciones se cargarán dinámicamente desde la función JS -->
+        </select>
+
+        <button type="submit">Guardar Recurso</button>
+    </form>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="assets/javascript/Administrador.js"></script>
+</body>
+</html>

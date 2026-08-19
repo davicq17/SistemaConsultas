@@ -1,0 +1,259 @@
+/* ===== Reset ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f9fafc;
+    color: #333;
+}
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    color: #1e3c72;
+    padding: 12px 24px;
+    border-bottom: 2px solid #eee;
+}
+.logo {
+    height: 55px;
+}
+.cerrar-sesion {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.cerrar-sesion:hover {
+    background: #c0392b;
+}
+
+/* ===== Menú ===== */
+.menu {
+    display: flex;
+    justify-content: center;
+    background: #1e3c72;
+    border-bottom: 3px solid #f1c40f;
+    flex-wrap: wrap;
+}
+.tablink {
+    background: transparent;
+    color: #fff;
+    padding: 14px 22px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+.tablink:hover {
+    background: #274a91;
+}
+.tablink.active {
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+}
+
+/* ===== Contenido ===== */
+.tabcontent {
+    display: none;
+    padding: 30px;
+    animation: fadeEffect 0.5s;
+}
+.tabcontent.active {
+    display: block;
+}
+@keyframes fadeEffect {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+h1, h2 {
+    color: #1e3c72;
+    margin-bottom: 20px;
+}
+
+/* ===== Tablas ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-top: 20px;
+}
+th, td {
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 14px;
+}
+th {
+    background: #1e3c72;
+    color: #fff;
+    font-weight: 600;
+}
+tr:nth-child(even) {
+    background: #f4f6f9;
+}
+tr:hover {
+    background: #eef4ff;
+}
+
+/* ===== Formularios ===== */
+#formSolicitud {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+#formSolicitud label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1e3c72;
+}
+#formSolicitud input,
+#formSolicitud select {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+#formSolicitud input:focus,
+#formSolicitud select:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 6px rgba(30,60,114,0.2);
+    outline: none;
+}
+#formSolicitud button {
+    background: #f1c40f;
+    color: #1e3c72;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+#formSolicitud button:hover {
+    background: #d4ac0d;
+}
+
+/* ===== Modal de firma ===== */
+#modalFirma {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+#modalFirma div {
+    background: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+#modalFirma h3 {
+    color: #1e3c72;
+    margin-bottom: 14px;
+}
+#modalFirma button {
+    margin: 6px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+#btnConfirmarFirma {
+    background: #27ae60;
+    color: #fff;
+}
+#btnConfirmarFirma:hover {
+    background: #1e874b;
+}
+#modalFirma button:last-child {
+    background: #e74c3c;
+    color: #fff;
+}
+#modalFirma button:last-child:hover {
+    background: #c0392b;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+    header { flex-direction: column; gap: 10px; text-align: center; }
+    .tablink { flex: 1 1 45%; margin: 4px; font-size: 14px; }
+    table th, td { font-size: 13px; padding: 10px; }
+    #formSolicitud { max-width: 90%; }
+}
+@media (max-width: 600px) {
+    .logo { height: 45px; }
+    .cerrar-sesion { width: 100%; font-size: 13px; padding: 8px; }
+    .menu { flex-direction: column; }
+    .tablink { width: 100%; padding: 12px; font-size: 14px; }
+    table { display: block; overflow-x: auto; }
+    #formSolicitud { width: 95%; padding: 16px; }
+    #modalFirma div { width: 95%; padding: 16px; }
+}
+
+/* ===== Filtros ===== */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    background: #fff;
+    padding: 16px 18px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.filtros label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #2c3e50;
+}
+.filtros select,
+.filtros input,
+.filtros button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+.filtros button {
+    background: #1e3c72;
+    color: #fff;
+    border: none;
+    font-weight: bold;
+}
+.filtros button:hover {
+    background: #274a91;
+}
+
+/* ===== Nombre de Usuario ===== */
+.usuario {
+    font-weight: bold;
+    margin-left: 50%;
+    color: #1e3c72;/* Azul de la paleta del menú */
+    font-size: 16px;
+    background: #f1c40f; /* Fondo azul del header */
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}

@@ -36,6 +36,8 @@ class SecurityConfig(
                     "/auth/register",
                     "/auth/forgot-password",
                     "/auth/reset-password",
+                    "/programas",
+                    "/solicitudes-consultas",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-ui.html",

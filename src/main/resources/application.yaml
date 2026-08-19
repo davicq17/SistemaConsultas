@@ -1,6 +1,6 @@
 spring:
   application:
-    name: SistemaConsultas
+    name: sistema_consultas
 
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/sistema_consultas}
@@ -19,5 +19,5 @@ spring:
         format_sql: true
 
 jwt:
-    secret: ${JWT_SECRET}
+    secret: $dXdrXdT9ewFBYdkX0yrr6UgxBkDfR5PJiivM4Kyjx4Cq5KFHOqeT3cfGQ8f3j5gd}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:30}

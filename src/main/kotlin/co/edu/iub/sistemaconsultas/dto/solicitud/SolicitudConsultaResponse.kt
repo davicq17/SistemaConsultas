@@ -35,5 +35,7 @@ data class SolicitudConsultaResponse(
 
     val nombreModulo: String,
 
+    val nombrePrograma:String?,
+
     val nombreRecursoFisico: String
 )
