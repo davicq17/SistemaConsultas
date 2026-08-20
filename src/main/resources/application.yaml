@@ -19,5 +19,5 @@ spring:
         format_sql: true
 
 jwt:
-    secret: $dXdrXdT9ewFBYdkX0yrr6UgxBkDfR5PJiivM4Kyjx4Cq5KFHOqeT3cfGQ8f3j5gd}
+    secret: ${JWT_SECRET}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:30}
