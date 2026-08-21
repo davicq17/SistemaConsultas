@@ -90,7 +90,7 @@ class ProgAcademicoController(
         ]
     )
     @PutMapping("/{id}")
-    fun actualizarPromaga(
+    fun actualizarPrograma(
 
         @PathVariable
         id:Long,
