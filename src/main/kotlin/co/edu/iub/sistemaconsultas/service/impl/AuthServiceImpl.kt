@@ -150,7 +150,6 @@ class AuthServiceImpl(
             ?: throw IllegalStateException("No fue posible codificar la contraseña.")
 
         usuario.password = passwordCodificada
-        //usuario.password = passwordEncoder.encode(request.nuevaPassword)!!
 
         usuarioRepository.save(usuario)
 

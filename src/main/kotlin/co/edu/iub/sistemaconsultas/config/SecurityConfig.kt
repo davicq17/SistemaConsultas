@@ -2,6 +2,7 @@ package co.edu.iub.sistemaconsultas.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -36,12 +37,16 @@ class SecurityConfig(
                     "/auth/register",
                     "/auth/forgot-password",
                     "/auth/reset-password",
-                    "/programas",
                     "/solicitudes-consultas",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
                     "/swagger-ui.html",
                     "/error"
+                ).permitAll()
+
+                it.requestMatchers(
+                    HttpMethod.GET,
+                    "/programas",
                 ).permitAll()
 
                 it.anyRequest().authenticated()
