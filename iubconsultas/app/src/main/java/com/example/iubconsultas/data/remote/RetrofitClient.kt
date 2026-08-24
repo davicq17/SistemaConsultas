@@ -6,7 +6,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    private const val BASE_URL = "http://localhost:8080/"
+        private const val SERVER_ADB = "http://localhost:8080/"
+        private const val SERVER_EMULATOR = "http://10.0.2.2:8080/"
+        private const val SERVER_WIFI = "http://tuIP:8080/"
+
+        private const val BASE_URL = SERVER_WIFI
 
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
