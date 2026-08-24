@@ -39,6 +39,12 @@ class Usuario(
     var activo: Boolean = true,
 
     @Column(nullable = false)
-    var fechaCreacion: LocalDateTime = LocalDateTime.now()
+    var fechaCreacion: LocalDateTime = LocalDateTime.now(),
+
+    @OneToMany(mappedBy = "autor")
+    var comentarios: MutableList<Comentario> = mutableListOf(),
+
+    @OneToMany(mappedBy = "usuario")
+    var eventos: MutableList<EventoSolicitud> = mutableListOf()
 
 )

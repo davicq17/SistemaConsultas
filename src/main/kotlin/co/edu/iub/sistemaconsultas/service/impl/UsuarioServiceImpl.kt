@@ -40,7 +40,7 @@ class UsuarioServiceImpl(
             ?: throw ResourceNotFoundException("Usuario no encontrado.")
 
         if (usuario.correo != request.correo) {
-            val usuarioConCorreo = usuarioRepository.findByCorreo(request.correo)
+            val usuarioConCorreo = usuarioRepository.findByCorreoAndActivoTrue(request.correo)
 
             if (usuarioConCorreo != null && usuarioConCorreo.id != usuario.id){
                 throw BadRequestException("El correo ya está registrado.")

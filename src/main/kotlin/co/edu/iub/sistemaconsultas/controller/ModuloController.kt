@@ -91,7 +91,7 @@ class ModuloController(
             ApiResponse(responseCode = "404", description = "Módulo no encontrado.")
         ]
     )
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     fun actualizarModulo(
         @PathVariable
         id: Long,
@@ -114,7 +114,7 @@ class ModuloController(
             ApiResponse(responseCode = "404", description = "Módulo no encontrado.")
         ]
     )
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun eliminarModulo(
         @PathVariable

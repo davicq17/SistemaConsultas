@@ -23,5 +23,7 @@ data class UpdateSolicitudConsultaRequest(
 
     val horaConsulta: LocalTime,
 
-    val moduloId: Long
+    val moduloId: Long,
+
+    val motivo: String?
 )

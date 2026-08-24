@@ -17,7 +17,7 @@ class CustomUserDetailsServiceImpl(
 
     override fun loadUserByUsername(correo: String): UserDetails {
 
-        val usuario = usuarioRepository.findByCorreo(correo)
+        val usuario = usuarioRepository.findByCorreoAndActivoTrue(correo)
             ?: throw UsernameNotFoundException("Usuario no encontrado")
 
         return User.builder()

@@ -15,6 +15,8 @@ interface SolicitudConsultaService {
 
     fun listarTodas(): List<SolicitudConsultaResponse>
 
+    fun listarMisSolicitudes(): List<SolicitudConsultaResponse>
+
     fun actualizar(id: Long, request: UpdateSolicitudConsultaRequest): SolicitudConsultaResponse
 
     fun reasignarDocente(id: Long, request: ReasignarDocenteRequest): SolicitudConsultaResponse

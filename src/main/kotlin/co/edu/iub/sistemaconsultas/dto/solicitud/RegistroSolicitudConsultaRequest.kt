@@ -23,9 +23,6 @@ data class RegistroSolicitudConsultaRequest(
 
     val horaConsulta: LocalTime,
 
-    @field:NotNull(message = "El ID del estudiante es obligatorio.")
-    val estudianteId: Long,
-
     @field:NotNull(message = "El ID del docente es obligatorio.")
     val docenteId: Long,
 
