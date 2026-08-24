@@ -19,5 +19,9 @@ spring:
         format_sql: true
 
 jwt:
-    secret: ${AIkViQL70QCgOK9_jzZ_wMqAnQGqNpTOxznrsNibTV9}
+    secret: ${JWT_SECRET}
     expiration-minutes: ${JWT_EXPIRATION_MINUTES:30}
+
+server:
+  port: 8080
+  address: 0.0.0.0
