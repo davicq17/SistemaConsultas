@@ -49,7 +49,7 @@ class AuthServiceImpl(
         val userDetails = customUserDetailsService
             .loadUserByUsername(request.correo)
 
-        val usuario = usuarioRepository.findByCorreoAndActivoTrue(request.correo)
+        val usuario = usuarioRepository.findByCorreo(request.correo)
             ?: throw ResourceNotFoundException("Usuario no encontrado")
 
         val token = jwtService.generarToken(userDetails)
