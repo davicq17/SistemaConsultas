@@ -23,6 +23,7 @@ El proyecto fue diseñado siguiendo una arquitectura por capas, aplicando buenas
 
 Actualmente el sistema implementa las siguientes funcionalidades:
 
+## Backend (API REST)
 - Autenticación mediante JWT.
 - Registro de usuarios.
 - Inicio de sesión.
@@ -30,17 +31,35 @@ Actualmente el sistema implementa las siguientes funcionalidades:
 - CRUD de Usuarios.
 - CRUD de Programas Académicos.
 - CRUD de Módulos.
+- CRUD de Sedes.
+- CRUD de Bloques.
+- CRUD de Recursos Físicos.
+- Módulo de Solicitudes de Consulta (creación, actualización, cambio de estado, asignación de recurso físico, reasignación de docente y consulta de `mis-solicitudes` por usuario).
+- Módulo de Comentarios por solicitud.
+- Módulo de Notificaciones automáticas por cambio de estado.
+- Historial de actividades mediante EventoSolicitud (`TipoEvento`).
 - Bean Validation.
 - Manejo global de excepciones.
 - Documentación interactiva con Swagger/OpenAPI.
-- Eliminación lógica de registros.
+- Eliminación lógica de registros administrativos.
 - Arquitectura por capas.
 - Documentación técnica completa.
+
+## Frontend Web (HTML/CSS/JS vanilla)
+- Vistas por rol: Administrador, Docente y Estudiante.
+- Login y registro consumiendo la API (`/auth`).
+- Panel de administración con gestión de catálogos y solicitudes.
+
+## App móvil Android (Jetpack Compose)
+- Cliente móvil nativo en `iubconsultas/` que consume la API (login, usuarios, catálogos, solicitudes, comentarios).
+
+> Nota: el módulo de Reportes administrativos (entidad `Reporte`, `TipoReporte`, generación de PDF) se encuentra desarrollado en la rama `feat/reportes` y aún no está integrado a `develop`.
 
 ---
 
 # Tecnologías utilizadas
 
+## Backend
 - Kotlin
 - Spring Boot
 - Spring Security
@@ -52,6 +71,15 @@ Actualmente el sistema implementa las siguientes funcionalidades:
 - Java 17
 - Swagger / OpenAPI
 - IntelliJ IDEA
+
+## Frontend Web (actual)
+- HTML, CSS y JavaScript vanilla (carpeta `Frontend/`)
+
+## App móvil
+- Android nativo con Kotlin y Jetpack Compose (módulo `iubconsultas/`)
+
+## Cliente web objetivo (roadmap, solo reemplaza a `Frontend/`)
+- Angular (migración prevista únicamente del cliente web actual; la app móvil `iubconsultas/` se mantiene sin cambios, ver Roadmap)
 
 ---
 
@@ -86,20 +114,27 @@ La lógica de negocio se implementa exclusivamente en la capa de servicios, mant
 # Estructura del proyecto
 
 ```text
-src
-└── main
-    └── kotlin
-        └── co.edu.iub.sistemaconsultas
-            ├── config
-            ├── controller
-            ├── dto
-            ├── exception
-            ├── mapper
-            ├── model
-            ├── repository
-            ├── service
-            │   └── impl
-            └── util
+SistemaConsultas
+├── src/main/kotlin/co.edu.iub.sistemaconsultas
+│   ├── config
+│   ├── controller
+│   ├── dto
+│   ├── exception
+│   ├── mapper
+│   ├── model
+│   ├── repository
+│   ├── service
+│   │   └── impl
+│   └── util
+├── Frontend/                # Cliente web actual (HTML/CSS/JS por rol)
+│   ├── Administrador.html
+│   ├── Docente.html
+│   ├── Estudiante.html
+│   ├── index.html / registro.html
+│   └── assets/{css,javascript,img}
+├── iubconsultas/            # App móvil Android (Jetpack Compose)
+├── docs/                    # Documentación técnica
+└── build.gradle.kts
 ```
 
 ---
@@ -170,7 +205,9 @@ Consultar el archivo `.env.example` para conocer el formato esperado.
 
 # Documentación
 
-La documentación técnica del proyecto se encuentra organizada en la carpeta **docs**.
+La documentación técnica del proyecto se encuentra organizada en la carpeta **docs**, separada por cliente: backend (API), app móvil Android y futuro cliente web Angular.
+
+## Backend (API)
 
 | Documento                                     | Descripción                                |
 |-----------------------------------------------|--------------------------------------------|
@@ -181,29 +218,56 @@ La documentación técnica del proyecto se encuentra organizada en la carpeta **
 | [05-API.md](docs/05-API.md)                   | Convenciones generales de la API REST      |
 | [06-ModeloDatos.md](docs/06-ModeloDatos.md)   | Dominio y entidades de trabajo             |
 
+## Cliente móvil Android (`iubconsultas/`)
+
+| Documento                                         | Descripción                              |
+|---------------------------------------------------|------------------------------------------|
+| [00-Indice.md](docs/movil/00-Indice.md)           | Índice y mapa de la doc móvil            |
+| [01-Arquitectura.md](docs/movil/01-Arquitectura.md) | Arquitectura MVVM y flujo de petición  |
+| [02-Convenciones.md](docs/movil/02-Convenciones.md) | Convenciones de código móvil           |
+| [03-Seguridad-Sesion.md](docs/movil/03-Seguridad-Sesion.md) | JWT, sesión y roles en la app   |
+| [04-Navegacion-Roles.md](docs/movil/04-Navegacion-Roles.md) | Destinos y homes por rol       |
+| [05-Integracion-API.md](docs/movil/05-Integracion-API.md) | Endpoints consumidos y brechas |
+| [06-Build-Despliegue.md](docs/movil/06-Build-Despliegue.md) | Compilación y conexión al backend |
+
+## Cliente web futuro (Angular, pendiente)
+
+| Documento                              | Descripción                                              |
+|----------------------------------------|----------------------------------------------------------|
+| [README.md](docs/web/README.md)        | Alcance e índice previsto de la doc web                  |
+| [01-Plan-Migracion.md](docs/web/01-Plan-Migracion.md) | Checklist pendiente de la migración a Angular |
+| [02-Auditoria-Cliente-Web-Backend.md](docs/web/02-Auditoria-Cliente-Web-Backend.md) | Inconsistencias web vs backend/BD a corregir en Angular |
+
 ---
 
 # Estado del proyecto
 
-## Funcionalidades implementadas
+## Funcionalidades implementadas (rama `develop`)
 
-- Autenticación mediante JWT.
-- Registro de usuarios.
-- Inicio de sesión.
-- Recuperación de contraseña.
+- Autenticación mediante JWT (login, registro, recuperación de contraseña).
 - CRUD de Usuarios.
-- CRUD de Programas Académicos.
-- CRUD de Módulos.
+- CRUD de Programas Académicos (`/programas`).
+- CRUD de Módulos (`/modulos`).
+- CRUD de Sedes (`/sedes`).
+- CRUD de Bloques (`/bloques`).
+- CRUD de Recursos Físicos (`/recursos-fisicos`).
+- Módulo de Solicitudes de Consulta (`/solicitudes-consultas`): creación, actualización, cambio de estado (`PENDIENTE, EN_PROCESO, RESUELTA, RECHAZADA, CANCELADA`), asignación de recurso físico, reasignación de docente y endpoint `mis-solicitudes`.
+- Módulo de Comentarios (`/comentarios`).
+- Módulo de Notificaciones (`/notificaciones`) generadas ante cambios de estado.
+- Historial de actividades (EventoSolicitud con `TipoEvento`: `CREACION, RECHAZO, CAMBIO_ESTADO, CANCELACION, ASIGNACION_RECURSO, REASIGNACION_DOCENTE, COMENTARIO, CAMBIO_AGENDAMIENTO`).
 - Bean Validation.
 - Swagger/OpenAPI.
 - Manejo global de excepciones.
-- Eliminación lógica.
+- Eliminación lógica en entidades administrativas.
+- Frontend Web por roles (Administrador, Docente, Estudiante).
+- App móvil Android que consume la API.
 
-## Funcionalidades pendientes
+## Funcionalidades pendientes / en curso
 
-- Integración del módulo de Solicitudes de Consulta.
+- Integrar a `develop` el módulo de Reportes administrativos (actualmente en la rama `feat/reportes`: `ReporteController`, `TipoReporte`, proyecciones y generación de PDF).
 - Restricción para impedir eliminar Programas Académicos con usuarios activos asociados.
-- Pruebas unitarias con JUnit y Mockito.
+- Pruebas unitarias con JUnit y Mockito (actualmente solo existe `SistemaConsultasApplicationTests` de contexto).
+- Migración del cliente web actual (`Frontend/` en HTML/CSS/JS vanilla) a Angular. Alcance limitado al cliente web: la app móvil `iubconsultas/` sigue existiendo y no se ve afectada (ver Roadmap).
 
 ---
 
@@ -217,18 +281,26 @@ La documentación técnica del proyecto se encuentra organizada en la carpeta **
 - CRUD Usuarios.
 - CRUD Programas Académicos.
 - CRUD Módulos.
+- CRUD Sedes, Bloques y Recursos Físicos.
+- Módulo Solicitudes de Consulta (incluye `mis-solicitudes`, cambio de estado, asignación de recurso y reasignación de docente).
+- Módulo Comentarios y Notificaciones.
+- Historial de actividades (EventoSolicitud).
 - Recuperación de contraseña.
 - Bean Validation.
 - Swagger/OpenAPI.
 - Documentación técnica.
+- Frontend Web por roles (HTML/CSS/JS).
+- App móvil Android (Jetpack Compose) que consume la API.
 
 ## Próximas mejoras
 
-- Integración de Solicitudes de Consulta.
-- Pruebas unitarias.
-- Mayor cobertura de pruebas.
-- Optimización de reglas de negocio.
-- Mejoras de seguridad (Refresh Tokens, MFA, auditoría).
+- Migrar el cliente web a Angular (solo `Frontend/`, sin afectar a la app móvil): reemplazar el cliente actual (HTML/CSS/JS vanilla) por una SPA en Angular con arquitectura por módulos/lazy-loading, guards por rol (Administrador/Docente/Estudiante), interceptores JWT, servicios por recurso (`auth, usuarios, programas, módulos, sedes, bloques, recursos-físicos, solicitudes, comentarios, notificaciones`), formularios reactivos con validación, y consumo tipado de la API documentada en Swagger. La app móvil Android (`iubconsultas/`) se mantiene como cliente independiente.
+- Dockerizar el proyecto entero: API (Spring Boot) y cliente web Angular con `Dockerfile` por componente y `docker-compose` para levantar API + web (+ MySQL), con variables de entorno externalizadas y perfiles dev/prod.
+- Integrar el módulo de Reportes administrativos desde la rama `feat/reportes` (incluye `TipoReporte`, proyecciones y exportación a PDF).
+- Pruebas unitarias y mayor cobertura (JUnit + Mockito) en Services y Controllers.
+- Optimización de reglas de negocio (p. ej. validación de eliminación de Programas con usuarios activos, disponibilidad de recursos físicos).
+- Paginación, filtrado y ordenamiento en listados.
+- Mejoras de seguridad (Refresh Tokens, revocación de JWT, MFA, límite de intentos de login, auditoría).
 
 ---
 

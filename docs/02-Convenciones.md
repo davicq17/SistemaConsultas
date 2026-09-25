@@ -83,9 +83,23 @@ Ejemplos:
 ```text
 UsuarioController
 
-ProgramaAcademicoController
+ProgramaAcademicoController (ProgAcademicoController)
 
 ModuloController
+
+SedeController
+
+BloqueController
+
+RecursoFisicoController
+
+SolicitudConsultaController
+
+ComentarioController
+
+NotificacionController
+
+ReporteController (rama feat/reportes, pendiente de integración)
 
 AuthController
 ```
@@ -105,9 +119,25 @@ Ejemplos:
 ```text
 UsuarioService
 
-ProgramaAcademicoService
+ProgramaAcademicoService (ProgAcademicoService)
 
 ModuloService
+
+SedeService
+
+BloqueService
+
+RecursoFisicoService
+
+SolicitudConsultaService
+
+ComentarioService
+
+NotificacionService
+
+EventoSolicitudService
+
+ReporteService (rama feat/reportes)
 ```
 
 Las implementaciones deberán finalizar con:
@@ -121,9 +151,21 @@ Ejemplos:
 ```text
 UsuarioServiceImpl
 
-ProgramaAcademicoServiceImpl
+ProgramaAcademicoServiceImpl (ProgAcademicoServiceImpl)
 
 ModuloServiceImpl
+
+SedeServiceImpl
+
+BloqueServiceImpl
+
+RecursoFisicoServiceImpl
+
+SolicitudConsultaServiceImpl
+
+ComentarioServiceImpl
+
+NotificacionServiceImpl
 ```
 
 ---
@@ -143,7 +185,21 @@ UsuarioRepository
 
 ModuloRepository
 
-ProgramaAcademicoRepository
+ProgramaAcademicoRepository (ProgAcademicoRepository)
+
+SedeRepository
+
+BloqueRepository
+
+RecursoFisicoRepository
+
+SolicitudConsultaRepository
+
+ComentarioRepository
+
+NotificacionRepository
+
+EventoSolicitudRepository
 ```
 
 ---
@@ -189,7 +245,23 @@ Modulo
 
 ProgramaAcademico
 
+Sede
+
+Bloque
+
+RecursoFisico
+
+SolicitudConsulta
+
+Comentario
+
+EventoSolicitud
+
+Notificacion
+
 PasswordResetToken
+
+Reporte (rama feat/reportes, pendiente de integración)
 ```
 
 ---
