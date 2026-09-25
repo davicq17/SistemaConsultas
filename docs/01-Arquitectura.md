@@ -41,12 +41,16 @@ El backend es responsable de:
 - Administrar usuarios.
 - Administrar programas académicos.
 - Administrar módulos.
+- Administrar sedes, bloques y recursos físicos.
+- Gestionar el ciclo de vida de las Solicitudes de Consulta (creación, actualización, cambio de estado, asignación de recurso físico, reasignación de docente y consulta de `mis-solicitudes`).
+- Gestionar comentarios y notificaciones asociadas a las solicitudes.
+- Registrar el historial de actividades mediante EventoSolicitud.
 - Gestionar la recuperación de contraseñas.
 - Validar la información recibida.
 - Centralizar el acceso a la base de datos.
-- Exponer una API REST documentada mediante Swagger.
+- Exponer una API REST documentada mediante Swagger, consumida por el Frontend Web (`Frontend/`) y la App móvil Android (`iubconsultas/`).
 
-Las funcionalidades relacionadas con Solicitudes de Consulta serán integradas posteriormente, una vez finalice su desarrollo.
+El módulo de Reportes administrativos se encuentra desarrollado en la rama `feat/reportes` y está pendiente de integración a `develop`.
 
 ---
 
@@ -92,6 +96,13 @@ Repository
 MySQL
 
 Esta separación evita dependencias innecesarias y facilita las pruebas, el mantenimiento y la escalabilidad del sistema.
+
+Los clientes actuales de la API son:
+
+- `Frontend/`: cliente web en HTML/CSS/JS vanilla con vistas por rol (Administrador, Docente, Estudiante);
+- `iubconsultas/`: app móvil Android nativa con Jetpack Compose, cliente independiente que se mantiene.
+
+La migración a Angular afecta únicamente al cliente web (`Frontend/`). La app móvil no se ve afectada (ver sección 17 y Roadmap del README).
 
 ```mermaid
 flowchart LR
@@ -377,8 +388,10 @@ Estas decisiones buscan mantener un código desacoplado, mantenible y fácil de 
 
 Entre las mejoras previstas se encuentran:
 
-- integración completa del módulo SolicitudConsulta
-- implementación de pruebas unitarias con JUnit y Mockito
-- impedir la eliminación lógica de Programas Académicos que tengan usuarios activos asociados
-- incorporación de auditoría de operaciones
+- migración del cliente web actual (HTML/CSS/JS vanilla en `Frontend/`) a Angular (SPA por módulos, guards por rol, interceptores JWT y formularios reactivos). Alcance limitado al cliente web: la app móvil `iubconsultas/` se mantiene como cliente independiente;
+- dockerizar el proyecto entero: API (Spring Boot) y cliente web Angular mediante `Dockerfile` por componente y `docker-compose` (API + web + MySQL), con variables de entorno externalizadas;
+- integración a `develop` del módulo de Reportes de la rama `feat/reportes` (incluye `TipoReporte`, proyecciones y generación de PDF);
+- implementación de pruebas unitarias con JUnit y Mockito;
+- impedir la eliminación lógica de Programas Académicos que tengan usuarios activos asociados;
+- incorporación de auditoría de operaciones;
 - optimización de consultas mediante paginación y filtros avanzados
