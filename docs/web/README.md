@@ -18,8 +18,8 @@
 |---------------------|-----------|
 | [01-Plan-Migracion.md](01-Plan-Migracion.md) | Checklist pendiente de la migración |
 | [02-Auditoria-Cliente-Web-Backend.md](02-Auditoria-Cliente-Web-Backend.md) | Inconsistencias verificadas web vs backend/BD (base para corregir en Angular) |
-| `03-Arquitectura.md` (a crear) | Módulos, routing, guards, interceptores y servicios |
-| `04-Convenciones.md` (a crear) | Estilo Angular, formularios reactivos, manejo de errores |
+| [03-Arquitectura.md](03-Arquitectura.md) | Módulos, routing, guards, interceptores y servicios |
+| [04-Convenciones.md](04-Convenciones.md) | Estilo Angular, formularios reactivos, manejo de errores |
 | `05-Docker.md` (a crear) | `Dockerfile` del web + `docker-compose` con la API |
 
 ---
