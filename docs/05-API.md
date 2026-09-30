@@ -109,18 +109,31 @@ Flujo general:
 
 # 7. Organización de la API
 
-Actualmente la API se encuentra organizada en los siguientes módulos:
+Actualmente la API se encuentra organizada en los siguientes módulos (rama `develop`):
 
 ```text
-/auth
+/auth                    # login, registro, forgot/reset-password
 
 /usuarios
 
-/programas-academicos
+/programas               # programas académicos
 
 /modulos
 
-/solicitudes (pendiente de integración)
+/sedes
+
+/bloques
+
+/recursos-fisicos
+
+/solicitudes-consultas   # incluye mis-solicitudes, cambio de estado,
+                         # asignación de recurso y reasignación de docente
+
+/comentarios
+
+/notificaciones
+
+/reportes                # pendiente de integración desde feat/reportes
 ```
 
 Cada módulo agrupa los endpoints relacionados con un único recurso del sistema.
@@ -222,7 +235,9 @@ Esto permitirá introducir cambios incompatibles sin afectar a los consumidores 
 
 La API podrá ampliarse con nuevas funcionalidades, entre ellas:
 
-- Integración del módulo de Solicitudes de Consulta.
+- Integración a `develop` del módulo de Reportes (`feat/reportes`: `TipoReporte`, proyecciones y PDF).
+- Migración del cliente web actual (HTML/CSS/JS vanilla) a Angular como SPA consumidora de esta API. Afecta solo a `Frontend/`; la app móvil (`iubconsultas/`) se mantiene como cliente independiente.
+- Dockerización del proyecto entero: API y cliente web Angular con `Dockerfile` por componente y `docker-compose` (API + web + MySQL).
 - Nuevos recursos y endpoints.
 - Versionado formal de la API.
 - Paginación y filtrado avanzado.

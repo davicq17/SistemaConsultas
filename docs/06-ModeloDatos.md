@@ -52,15 +52,16 @@ Las entidades históricas, como Comentario, EventoSolicitud y Notificación, no 
 
 Todos los valores controlados por reglas del negocio se representan mediante enumeraciones (Enum), evitando el uso de cadenas de texto que puedan generar inconsistencias.
 
-Entre las enumeraciones utilizadas se encuentran:
+Entre las enumeraciones utilizadas en `develop` se encuentran:
 
 - Rol
 - EstadoSolicitud
 - PrioridadSolicitud
 - TipoRecursoFisico
 - TipoNotificacion
-- TipoReporte
-- AccionEventoSolicitud
+- TipoEvento
+
+> Nota: `TipoReporte` y la entidad `Reporte` solo existen en la rama `feat/reportes` (módulo de reportes con generación de PDF) y aún no están integrados a `develop`.
 
 ## Escalabilidad
 
@@ -282,7 +283,7 @@ Mantener la trazabilidad completa de las acciones realizadas sobre una solicitud
 
 Los eventos almacenan información histórica y no implementan eliminación lógica.
 
-Las acciones registradas se representan mediante la enumeración `AccionEventoSolicitud`.
+Las acciones registradas se representan mediante la enumeración `TipoEvento`.
 
 Entre los eventos que pueden registrarse se encuentran:
 
@@ -317,6 +318,8 @@ No implementan eliminación lógica debido a que forman parte del historial de c
 ---
 
 ## Reporte
+
+> Estado: implementado únicamente en la rama `feat/reportes` (con `ReporteController`, `ReporteService`, `TipoReporte`, proyecciones y generación de PDF). Pendiente de integración a `develop`.
 
 Representa los reportes generados por el sistema a partir de la información almacenada en la base de datos.
 
@@ -491,12 +494,12 @@ Las enumeraciones implementadas son las siguientes.
 | Enumeración | Descripción |
 |-------------|-------------|
 | Rol | Define el tipo de usuario del sistema (Administrador, Docente, Estudiante). |
-| EstadoSolicitud | Representa el estado actual de una solicitud durante su ciclo de vida. |
+| EstadoSolicitud | Representa el estado actual de una solicitud (`PENDIENTE, EN_PROCESO, RESUELTA, RECHAZADA, CANCELADA`). |
 | PrioridadSolicitud | Define el nivel de prioridad asignado a una solicitud. |
 | TipoRecursoFisico | Clasifica los diferentes recursos físicos disponibles (Salón, Laboratorio, Auditorio, entre otros). |
 | TipoNotificacion | Identifica el tipo de notificación generada por el sistema. |
-| TipoReporte | Clasifica los diferentes reportes que pueden generarse. |
-| AccionEventoSolicitud | Describe las acciones registradas en el historial de una solicitud. |
+| TipoEvento | Describe los eventos registrados en el historial de una solicitud (`CREACION, RECHAZO, CAMBIO_ESTADO, CANCELACION, ASIGNACION_RECURSO, REASIGNACION_DOCENTE, COMENTARIO, CAMBIO_AGENDAMIENTO`). |
+| TipoReporte | (Solo rama `feat/reportes`) Clasifica los diferentes reportes administrativos. |
 
 El uso de enumeraciones permite reducir errores de captura, mejorar la legibilidad del código y garantizar que únicamente se almacenen valores válidos definidos por las reglas del negocio.
 
@@ -580,7 +583,7 @@ El modelo de datos fue diseñado considerando la posibilidad de incorporar nueva
 
 Entre las mejoras identificadas se encuentran:
 
-- Implementar almacenamiento definitivo de archivos para los reportes generados.
+- Integrar a `develop` el módulo de Reportes de la rama `feat/reportes` y definir el almacenamiento definitivo de sus archivos PDF.
 - Incorporar programación automática de consultas mediante reglas de disponibilidad.
 - Agregar control de disponibilidad de recursos físicos.
 - Implementar recordatorios automáticos mediante notificaciones programadas.

@@ -293,12 +293,19 @@ Estas rutas permiten realizar el proceso completo de autenticación y recuperaci
 
 Todos los demás endpoints requieren un JWT válido.
 
-Entre ellos se encuentran:
+Entre ellos se encuentran (rama `develop`):
 
-- Usuarios.
-- Programas Académicos.
-- Módulos.
-- Solicitudes de Consulta (cuando sean integradas).
+- `/usuarios`.
+- `/programas`.
+- `/modulos`.
+- `/sedes`.
+- `/bloques`.
+- `/recursos-fisicos`.
+- `/solicitudes-consultas` (incluye `mis-solicitudes`).
+- `/comentarios`.
+- `/notificaciones`.
+
+Pendiente de integración desde `feat/reportes`: `/reportes`.
 
 ---
 

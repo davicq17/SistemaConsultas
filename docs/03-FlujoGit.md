@@ -66,6 +66,26 @@ feature/programa-academico
 feature/modulo
 
 feature/recuperar-password
+
+feature/sedes
+
+feature/bloques
+
+feature/recurso_fisico
+
+feature/SolicitudConsulta
+
+feature/comentario
+
+feature/notificacion
+
+feature/mis-solicitudes
+
+feat/EventoSolicitud
+
+feat/reportes (pendiente de merge a develop)
+
+feat/app-movil
 ```
 
 ---
@@ -380,7 +400,12 @@ Commit
 Push
 ```
 
-Este flujo fue el utilizado durante el desarrollo de los módulos de Usuarios, Programas Académicos, Módulos y Recuperación de Contraseña, garantizando una integración controlada y un historial de cambios organizado.
+Este flujo fue el utilizado durante el desarrollo de los módulos de Usuarios, Programas Académicos, Módulos, Sedes, Bloques, Recursos Físicos, Solicitudes de Consulta (incluye `mis-solicitudes`), Comentarios, Notificaciones, EventoSolicitud, Recuperación de Contraseña, Frontend Web y App móvil, garantizando una integración controlada y un historial de cambios organizado.
+
+Pendiente de integración a `develop`: `feat/reportes`.
+Próximas líneas de trabajo previstas:
+- migración del cliente web a Angular (rama sugerida `feature/frontend-angular`; afecta solo a `Frontend/` y `docs/web/`, no a `iubconsultas/`);
+- dockerización de API + cliente web (rama sugerida `docker/api-web`).
 
 ---
 
