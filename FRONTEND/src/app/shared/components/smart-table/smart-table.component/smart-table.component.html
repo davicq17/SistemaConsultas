@@ -1,0 +1,125 @@
+<div class="table-container">
+
+  @if (config().globalFilter !== false) {
+    <div class="table-toolbar">
+
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Buscar..."
+        class="table-search"
+      />
+
+      <button
+        type="button"
+        (click)="clearFilter()"
+        class="clear-button"
+      >
+        Limpiar
+      </button>
+
+    </div>
+  }
+
+  
+  <div class="table-responsive">
+
+    <table class="smart-table">
+
+      
+      <thead>
+        <tr>
+
+          @for (col of config().columns; track col.field) {
+            <th>
+              {{ col.header }}
+            </th>
+          }
+
+          @if (config().actions?.length) {
+            <th>Acciones</th>
+          }
+
+        </tr>
+      </thead>
+
+      
+      <tbody>
+
+        @for (row of filteredData(); track $index) {
+
+          <tr>
+
+            @for (col of config().columns; track col.field) {
+
+              <td [class.text-nowrap]="!col.wrap">
+
+                @if (col.type === 'tag' && col.tagConfig) {
+
+                  <span
+                    [class]=" 'table-tag' +(col.tagConfig.classFn?.(row) ?? '')"
+                  >
+                    {{ col.tagConfig.valueFn(row) }}
+                  </span>
+
+                } @else {
+
+                  {{
+                    col.formatFn
+                      ? col.formatFn(resolveFieldData(row, col.field), row)
+                      : resolveFieldData(row, col.field)
+                  }}
+
+                }
+
+              </td>
+
+            }
+
+            
+            @if (config().actions?.length) {
+
+              <td class="actions-cell">
+
+                @for (act of config().actions; track act.label) {
+
+                  <button
+                    type="button"
+                    [class]="act.className ?? ''"
+                    (click)="act.action(row)"
+                  >
+                    {{ act.label }}
+                  </button>
+
+                }
+
+              </td>
+
+            }
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td
+              [attr.colspan]="config().columns.length + (config().actions?.length ? 1 : 0)"
+              class="empty-message"
+            >
+              No se encontraron registros.
+            </td>
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <p class="table-count">
+    Registros encontrados: {{ filteredData().length }}
+  </p>
+
+</div>

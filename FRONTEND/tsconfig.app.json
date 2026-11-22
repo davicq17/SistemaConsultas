@@ -7,7 +7,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/features/auth/pages/login"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

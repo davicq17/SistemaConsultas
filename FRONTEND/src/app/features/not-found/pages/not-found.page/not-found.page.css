@@ -1,0 +1,51 @@
+.error-content {
+  text-align: center;
+  padding: 35px 20px;
+}
+
+.error-content h1 {
+  font-size: 5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #17243b;
+  margin: 0;
+}
+
+.error-content h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #17243b;
+  margin: 10px 0 20px;
+}
+
+.error-content p {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.error-content p b {
+  font-family: monospace;
+  overflow-wrap: anywhere;
+}
+
+.back-link {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 7px;
+  background: #17243b;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  background: #334155;
+}
+
+@media (max-width: 576px) {
+  .error-content h1 {
+    font-size: 4rem;
+  }
+}

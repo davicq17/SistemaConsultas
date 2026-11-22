@@ -1,0 +1,19 @@
+<div class="body">
+    <div class="login-container">
+
+        <img src="/img/logo.png" alt="Logo de la Institución Universitaria de Barranquilla">
+
+        <div class="Textologin">
+            <h1>Iniciar sesion</h1>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSumit()" autocomplete="off">
+            <input formControlName="correo" type="text" placeholder="Correo">
+            <input formControlName="password" type="password" placeholder="Contraseña">
+            <button type="submit">Ingresar</button>
+        </form>
+
+        <a href="/auth/register">Registro</a>
+
+    </div>
+</div>

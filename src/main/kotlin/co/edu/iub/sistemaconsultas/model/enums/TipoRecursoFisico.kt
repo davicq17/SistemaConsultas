@@ -4,6 +4,4 @@ enum class TipoRecursoFisico {
     SALON,
     LABORATORIO,
     AUDITORIO,
-    SALA,
-    OFICINA,
 }

@@ -1,0 +1,106 @@
+<div class="body">
+    <div class="registro-container">
+        <img class="registro-logo" src="/img/logo.png" alt="Logo de la Institución Universitaria de Barranquilla">
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" formControlName="nombre">
+                    @if (
+                        registerForm.controls.nombre.invalid &&
+                        (registerForm.controls.nombre.touched || registerForm.controls.nombre.dirty)
+                    ){
+                        @if(registerForm.controls.nombre.hasError('required')){
+                            <p class="error-message">El nombre es obligatorio.</p>
+                        }
+                    }
+                </div>
+
+                <div class="form-field">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" id="apellido" formControlName="apellido">
+                    @if(
+                        registerForm.controls.apellido.invalid &&
+                        (registerForm.controls.apellido.touched || registerForm.controls.apellido.dirty)
+                    ){
+                        @if(registerForm.controls.apellido.hasError('required')){
+                            <p class="error-message">El apellido es obligatorio.</p>
+                        }
+                    }
+                </div>
+
+                <div class="form-field">
+                    <label for="numeroDocumento">Número de Documento:</label>
+                    <input type="text" id="numeroDocumento" formControlName="identificacion">
+                    @if(
+                        registerForm.controls.identificacion.invalid &&
+                        (registerForm.controls.identificacion.touched || registerForm.controls.identificacion.dirty)
+                    ){
+                        @if(registerForm.controls.identificacion.hasError('required')){
+                            <p class="error-message">La identificación es obligatoria.</p>
+                        }
+                    }
+                </div>
+
+                <div class="form-field">
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="text" id="correo" formControlName="correo">
+                    @if(
+                        registerForm.controls.correo.invalid &&
+                        (registerForm.controls.correo.touched || registerForm.controls.correo.dirty)
+                    ){
+                        @if (registerForm.controls.correo.hasError('required')) {
+                            <p class="error-message">El correo es obligatorio.</p>
+                        }
+
+                        @if(registerForm.controls.correo.hasError('email')){
+                            <p class="error-message">Debe ingresar un correo válido.</p>
+                        }
+                    }
+                </div>
+
+                <div class="form-field">
+                    <label for="programaAcademico">Programa Académico:</label>
+                    <select id="programaAcademico" formControlName="programaId">
+                        <option [ngValue]="null">Seleccione un programa</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="contra">Contraseña:</label>
+                    <input type="text" id="contra" formControlName="password">
+                    @if(
+                        registerForm.controls.password.invalid &&
+                        (registerForm.controls.password.touched || registerForm.controls.password.dirty)
+                    ){
+                        @if (registerForm.controls.password.hasError('required')) {
+                            <p class="error-message">La contraseña es obligatoria.</p>
+                        }
+
+                        @if (registerForm.controls.password.hasError('minLength')) {
+                            <p class="error-message">La contraseña debe tener mínimo 8 caracteres.</p>
+                        }
+                    }
+                </div>
+
+                @if (esAdministrador) {
+                    <div class="form-field">
+                        <label for="rol">Rol:</label>
+                        <select id="rol" formControlName="rol">
+                            <option value="ESTUDIANTE">Estudiante</option>
+                            <option value="DOCENTE">Docente</option>
+                            <option value="ADMINISTRADOR">Administrador</option>
+                        </select>
+                    </div>
+                }
+
+            </div>
+
+            <button type="submit">Registrar</button>
+        </form>
+
+        <a href="/auth/login">Regreso</a>
+    </div>
+</div>
