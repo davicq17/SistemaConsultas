@@ -1,0 +1,73 @@
+<section class="alta">
+  <h1>Nuevo recurso físico</h1>
+  <p>Los campos se validan mientras escribe y el alta se registra en el inventario local.</p>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Laboratorio de Redes" />
+      @if ((nombre.touched || nombre.dirty) && nombre.invalid) {
+        <ul class="errores">
+          @if (nombre.hasError('required')) {
+            <li>El nombre es obligatorio.</li>
+          }
+          @if (nombre.hasError('minlength')) {
+            <li>Debe tener al menos 4 caracteres.</li>
+          }
+          @if (nombre.hasError('maxlength')) {
+            <li>No puede superar los 50 caracteres.</li>
+          }
+          @if (nombre.hasError('iniciaMayuscula')) {
+            <li>Debe comenzar con letra mayúscula.</li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" formControlName="tipo">
+        @for (tipo of tipos; track tipo) {
+          <option [value]="tipo">{{ tipo }}</option>
+        }
+      </select>
+      @if ((tipo.touched || tipo.dirty) && tipo.hasError('required')) {
+        <ul class="errores">
+          <li>Seleccione un tipo.</li>
+        </ul>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="bloqueId">Identificador del bloque</label>
+      <input id="bloqueId" type="number" formControlName="bloqueId" />
+      <small>
+        @for (bloque of bloques; track bloque.id) {
+          <span>{{ bloque.id }} = {{ bloque.nombre }} </span>
+        }
+      </small>
+      @if ((bloqueId.touched || bloqueId.dirty) && bloqueId.invalid) {
+        <ul class="errores">
+          @if (bloqueId.hasError('required')) {
+            <li>El bloque es obligatorio.</li>
+          }
+          @if (bloqueId.hasError('min')) {
+            <li>El bloque debe ser 1 o superior.</li>
+          }
+        </ul>
+      }
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Guardar recurso</button>
+  </form>
+
+  @if (creado(); as recurso) {
+    <p class="confirmacion" role="status">
+      «{{ recurso.nombre }}» quedó registrado con el id {{ recurso.id }}.
+      <a [routerLink]="['/recursos', recurso.id]">Ver detalle</a>
+      <a routerLink="/recursos">Ir al listado</a>
+    </p>
+  }
+
+  <a class="volver" routerLink="/recursos">Volver al listado</a>
+</section>

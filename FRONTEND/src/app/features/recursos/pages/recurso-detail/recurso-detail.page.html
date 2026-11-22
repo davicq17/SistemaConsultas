@@ -1,0 +1,22 @@
+@if (recurso(); as recurso) {
+  <article class="detalle">
+    <h1>{{ recurso.nombre }}</h1>
+    <dl>
+      <dt>Identificador</dt>
+      <dd>{{ recurso.id }}</dd>
+      <dt>Tipo</dt>
+      <dd>{{ recurso.tipo }}</dd>
+      <dt>Bloque</dt>
+      <dd>{{ recurso.bloqueNombre }} ({{ recurso.bloqueId }})</dd>
+      <dt>Estado</dt>
+      <dd>{{ recurso.activo ? 'Activo' : 'Inactivo' }}</dd>
+    </dl>
+    <a routerLink="/recursos">Volver al listado</a>
+  </article>
+} @else {
+  <section class="detalle">
+    <h1>Recurso no encontrado</h1>
+    <p>No existe un recurso con el identificador <strong>{{ id() }}</strong>.</p>
+    <a routerLink="/recursos">Volver al listado</a>
+  </section>
+}

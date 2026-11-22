@@ -10,6 +10,10 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./features/usuarios/users.routes').then(m => m.USER_ROUTES)
     },
+    {path: 'recursos',
+        loadChildren: () =>
+            import('./features/recursos/recursos.routes').then(m => m.RECURSOS_ROUTES)
+    },
     {path: '404',
         loadComponent: () =>
             import('./features/not-found/pages/not-found.page/not-found.page')

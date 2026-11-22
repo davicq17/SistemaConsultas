@@ -1,1 +1,15 @@
-<router-outlet />
+<header class="barra">
+  <a class="marca" routerLink="/recursos">Sistema de Consultas</a>
+  <nav>
+    <a
+      routerLink="/recursos"
+      routerLinkActive="activo"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >Recursos</a>
+    <a routerLink="/recursos/nuevo" routerLinkActive="activo">Nuevo recurso</a>
+  </nav>
+</header>
+
+<main>
+  <router-outlet />
+</main>

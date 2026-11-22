@@ -1,0 +1,36 @@
+.detalle {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid #d6e0ea;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.detalle h1 {
+  margin-top: 0;
+  color: #0f2f52;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0.6rem 1rem;
+}
+
+dt {
+  font-weight: 600;
+  color: #23405e;
+}
+
+dd {
+  margin: 0;
+  color: #53687f;
+}
+
+a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #0f6fbd;
+  font-weight: 600;
+}

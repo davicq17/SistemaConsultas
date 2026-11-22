@@ -1,0 +1,38 @@
+<section class="listado">
+  <div class="cabecera">
+    <div>
+      <h1>Recursos físicos</h1>
+      <p>Consulte el inventario y abra el detalle de cada recurso.</p>
+    </div>
+    <a class="accion" routerLink="/recursos/nuevo">Nuevo recurso</a>
+  </div>
+
+  <label class="buscador" for="busqueda">
+    Buscar por nombre, bloque o tipo
+    <input
+      id="busqueda"
+      type="search"
+      [formControl]="busqueda"
+      placeholder="Ej. Laboratorio, Bloque A, SALON"
+    />
+  </label>
+
+  @if (termino().length > 0) {
+    <p class="contador">{{ recursos().length }} resultado(s) para «{{ termino() }}».</p>
+  } @else {
+    <p class="contador">{{ recursos().length }} recurso(s) en el inventario.</p>
+  }
+
+  @if (recursos().length > 0) {
+    <ul class="tarjetas">
+      @for (recurso of recursos(); track recurso.id) {
+        <li>
+          <a [routerLink]="['/recursos', recurso.id]">{{ recurso.nombre }}</a>
+          <span>{{ recurso.tipo }} · {{ recurso.bloqueNombre }}</span>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="vacio">No hay recursos que coincidan con «{{ termino() }}».</p>
+  }
+</section>

@@ -1,0 +1,89 @@
+.listado {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.cabecera h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: #0f2f52;
+}
+
+.cabecera p {
+  margin: 0.35rem 0 0;
+  color: #53687f;
+}
+
+.accion {
+  padding: 0.65rem 1rem;
+  border-radius: 0.5rem;
+  background: #0f6fbd;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.accion:hover {
+  background: #0b568f;
+}
+
+.buscador {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 1.75rem;
+  font-weight: 600;
+  color: #23405e;
+}
+
+.buscador input {
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #b9c6d4;
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+.contador {
+  color: #53687f;
+  font-size: 0.9rem;
+}
+
+.tarjetas {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 1rem 0 0;
+  list-style: none;
+}
+
+.tarjetas li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid #d6e0ea;
+  border-radius: 0.6rem;
+  background: #fff;
+}
+
+.tarjetas a {
+  color: #0f6fbd;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.tarjetas a:hover {
+  text-decoration: underline;
+}
+
+.tarjetas span,
+.vacio {
+  color: #53687f;
+}

@@ -1,0 +1,86 @@
+.alta {
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.alta h1 {
+  margin: 0;
+  color: #0f2f52;
+}
+
+.alta > p {
+  color: #53687f;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid #d6e0ea;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+.campo {
+  display: grid;
+  gap: 0.35rem;
+}
+
+label {
+  font-weight: 600;
+  color: #23405e;
+}
+
+input,
+select {
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #b9c6d4;
+  border-radius: 0.5rem;
+  font: inherit;
+}
+
+small {
+  color: #53687f;
+}
+
+.errores {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: #a11212;
+  font-size: 0.875rem;
+}
+
+button {
+  padding: 0.7rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: #0f6fbd;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #aab8c6;
+  cursor: not-allowed;
+}
+
+.confirmacion {
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background: #e6f5ec;
+  color: #155724;
+}
+
+.confirmacion a,
+.volver {
+  margin-left: 0.5rem;
+  color: #0f6fbd;
+  font-weight: 600;
+}
+
+.volver {
+  display: inline-block;
+  margin-top: 1rem;
+}

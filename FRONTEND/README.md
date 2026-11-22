@@ -1,59 +1,76 @@
-# FRONTEND
+# FRONTEND · COM30 Entrega 2
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.0.
+SPA del **Sistema de Consultas** para la Entrega 2 del proyecto integrador. Amplía la Entrega 1 con
+tres vistas con ruta propia, detalle por identificador, alta con formulario reactivo validado y
+búsqueda reactiva sobre datos locales del inventario de recursos físicos.
 
-## Development server
+Grupo 1 · Braynne Romero, David Carrillo, Hellen Arrieta.
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Arranque
 
 ```bash
-ng generate component component-name
+pnpm install
+pnpm start      # http://localhost:4200
+pnpm build      # equivalente a npx ng build
+pnpm test       # Vitest
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Los datos del inventario viven en `src/app/features/recursos/services/recursos.service.ts` y se
+conservan en memoria durante la sesión; no se necesita el backend de MySQL para recorrer la SPA.
 
-```bash
-ng generate --help
+## Tabla de rutas
+
+| Ruta | Vista | Parámetro |
+| --- | --- | --- |
+| `/` | Redirección a `/auth/login` | — |
+| `/auth/login` | `LoginPage` | — |
+| `/auth/register` | `RegisterPage` | — |
+| `/users/list` | `UserListPage` | — |
+| `/recursos` | `RecursosListPage` | — |
+| `/recursos/nuevo` | `RecursoCreatePage` | — |
+| `/recursos/:id` | `RecursoDetailPage` | `id`, enlazado con `input.required()` y `numberAttribute` |
+| `/404` | `NotFoundPage` | — |
+| `/**` | Redirección a `/404` | — |
+
+Las rutas de recursos se cargan de forma diferida con `loadChildren` en `app.routes.ts` y
+`loadComponent` en `recursos.routes.ts`. El parámetro de `/recursos/:id` llega al componente gracias a
+`withComponentInputBinding()` en `app.config.ts`. Si el id no existe se muestra un mensaje dentro de
+la propia vista de detalle; una ruta inexistente cae en `/404`.
+
+## ¿Por qué formulario reactivo y no uno basado en plantillas?
+
+El alta usa `FormBuilder` tipado (`fb.nonNullable.group`) porque el modelo del formulario
+(`RecursoFisicoFormValue`) es distinto del modelo de datos (`RecursoFisicoResponse`): el primero
+sólo contiene lo que captura el usuario y el segundo incluye `id`, `bloqueNombre` y `activo`, que
+genera el servicio. Con un formulario reactivo cada control es explícito, se pueden combinar cuatro
+validadores integrados (`required`, `minLength`, `maxLength` y `min`) con el validador propio
+`iniciaConMayuscula`, y el estado `invalid`/`touched`/`dirty` gobierna directamente los mensajes y el
+botón deshabilitado, sin depender de directivas de plantilla ni de referencias locales. Además, el
+valor tipado se convierte al request del servicio en
+`features/recursos/mappers/recurso-fisico.mapper.ts`, y `form.reset()` deja el formulario listo para
+otra entrada inmediatamente después del alta.
+
+Un formulario basado en plantillas habría exigido dispersar la validación en atributos y variables de
+plantilla, dificultando tanto la conversión al modelo de datos como las pruebas unitarias de los
+validadores y del mapper.
+
+## Búsqueda reactiva
+
+`RecursosListPage` escucha `busqueda.valueChanges` con `debounceTime(300)` y
+`distinctUntilChanged()`, y convierte ese flujo en signal con `toSignal`. No hay `subscribe()`
+manual: Angular cancela la suscripción al destruir el componente. El listado se deriva con
+`computed()` de la signal de solo lectura expuesta por `RecursosService`, por lo que un alta nuevo
+aparece sin recargar la página.
+
+## Estructura relevante
+
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
+src/app/features/recursos/
+├── data/             catálogo de bloques
+├── mappers/          modelo de formulario → modelo de datos
+├── models/           modelo del formulario
+├── pages/            listado, alta y detalle
+├── services/         inventario local (signal privada + signal de solo lectura)
+├── utils/            filtrado por texto
+└── validators/       validador propio
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
