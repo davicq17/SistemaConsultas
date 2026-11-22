@@ -45,7 +45,7 @@ Se requiere que la SPA del grupo permita consultar el listado, abrir el detalle 
 
 ## Casos de verificación *(el grupo registra el resultado obtenido en cada uno)*
 
-Los resultados se registraron sobre el código de `FRONTEND`; las capturas 1 y 2 quedan pendientes de tomar en navegador.
+Los resultados se registraron sobre el código de `FRONTEND`; las capturas 1 y 2 se tomaron en navegador y se incluyen más adelante en esta sección.
 
 | Entrada | Resultado esperado | Obtenido |
 | --- | --- | --- |
@@ -97,13 +97,15 @@ Salida acotada a la entrega (`git shortlog -sn HEAD -- FRONTEND`):
 
 Observación de autoría: `davicq17` corresponde a David Carrillo; `martin` y `M4rt1nG24` aparecen en el historial general del monorepo pero no en la lista del grupo, y **Hellen Arrieta no tiene commits propios**. La condición 3 queda pendiente de completar con commits de Hellen antes de la entrega.
 
-**EVIDENCIA · INSERTE AQUÍ LA CAPTURA**
+**EVIDENCIA · CAPTURA 1**
 Captura 1 · El formulario con errores de validación visibles y el envío deshabilitado.
-*(Pendiente: este entorno no dispone de navegador. Tomar en `/recursos/nuevo`: escribir `laboratorio` en Nombre, dejar `bloqueId` en 0 y tocar los campos.)*
 
-**EVIDENCIA · INSERTE AQUÍ LA CAPTURA**
+![Captura 1: errores de validación y envío deshabilitado](./img/captura1_validacion.png)
+
+**EVIDENCIA · CAPTURA 2**
 Captura 2 · La vista de detalle con el identificador visible en la barra de direcciones.
-*(Pendiente: este entorno no dispone de navegador. Tomar en `/recursos/1`.)*
+
+![Captura 2: detalle con el identificador en la URL](./img/captura2_detalle.png)
 
 ---
 
