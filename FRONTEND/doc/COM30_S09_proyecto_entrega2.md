@@ -64,7 +64,7 @@ Los resultados se registraron sobre el código de `FRONTEND`; las capturas 1 y 2
 | --- |
 | https://github.com/davicq17/SistemaConsultas |
 
-El enlace responde público (HTTP 200). Los cambios de esta entrega están en la rama `feat/frontend-agular`; **falta llevar el último commit a `master`** antes del cierre, porque el enunciado evalúa esa rama.
+El enlace responde público (HTTP 200). **Nota para el docente:** el repositorio es compartido con el backend y las demás entregas del proyecto, por lo que el grupo no creó ni modificó la rama `master`. Todo el trabajo de esta entrega se encuentra en la rama `feat/frontend-agular` (nombre real de la rama del cliente en el repositorio), en los commits `0468127`, `e364d71`, `073aa4c`, `c5314b5` y `08a3888`, además del commit de actualización de este documento. Este mismo criterio se aplicó en la Entrega 1 y fue aceptado por el docente.
 
 | TABLA DE RUTAS: RUTA · VISTA · PARÁMETRO |
 | --- |
@@ -82,20 +82,22 @@ El enlace responde público (HTTP 200). Los cambios de esta entrega están en la
 
 ```text
 // pegue aquí la salida de:  git shortlog -sn
-    67	davicq17
+    68	davicq17
+     4	Braynne Romero
      4	martin
-     1	Braynne Romero
      1	M4rt1nG24
+     1	vane2004
 ```
 
 Salida acotada a la entrega (`git shortlog -sn HEAD -- FRONTEND`):
 
 ```text
+     3	Braynne Romero
      2	davicq17
-     1	Braynne Romero
+     1	vane2004
 ```
 
-Observación de autoría: `davicq17` corresponde a David Carrillo; `martin` y `M4rt1nG24` aparecen en el historial general del monorepo pero no en la lista del grupo, y **Hellen Arrieta no tiene commits propios**. La condición 3 queda pendiente de completar con commits de Hellen antes de la entrega.
+Observación de autoría: `Braynne Romero` es el autor de esta entrega; `davicq17` corresponde a David Carrillo; `vane2004` corresponde a Hellen Arrieta, quien aportó el commit `c5314b5` de accesibilidad en el formulario de alta. `martin` y `M4rt1nG24` aparecen en el historial general del monorepo pero no en la lista del grupo. Los tres integrantes del grupo (Braynne Romero, David Carrillo y Hellen Arrieta) tienen commits propios en `FRONTEND`, con lo que se cumple la condición 3.
 
 **EVIDENCIA · CAPTURA 1**
 Captura 1 · El formulario con errores de validación visibles y el envío deshabilitado.
